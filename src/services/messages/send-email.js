@@ -1,12 +1,14 @@
 const nodemailer = require('nodemailer');
 const nodemailerSendmail = require('./nodemailer-sendmail');
-module.exports = function ({userEmail, subject, description, filePDF}) {
+module.exports = function ({userEmail, subject, body, filePDF}) {
 
   return new Promise(async function (resolve, reject) {
 
     console.log('*** SendEmail ***: ', userEmail);
 
     let resp_server = {};
+
+    console.log(userEmail, subject, body);
 
     try {
 
@@ -28,8 +30,8 @@ module.exports = function ({userEmail, subject, description, filePDF}) {
       let mailOptions = {
         from: 'infoinmoveperu@gmail.com',
         to: userEmail,
-        subject: 'Código de seguridad',
-        text: 'El codigo para continuar es: CODE'
+        subject: subject,
+        text: body,
       };
 
       const send = await transporter.sendMail(mailOptions, function (err, data) {
