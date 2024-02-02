@@ -1,5 +1,5 @@
 {
-  "host": "192.168.18.7",
+  "host": "localhost",
   "port": 3020,
   "public": "../public/",
   "paginate": {
@@ -10,10 +10,7 @@
     "entity": "user",
     "service": "users",
     "secret": "thp5QjnjoV6dd9NSpLyf6Yfrku4=",
-    "authStrategies": [
-      "jwt",
-      "local"
-    ],
+    "authStrategies": ["jwt", "local"],
     "jwtOptions": {
       "header": {
         "typ": "access"
@@ -28,5 +25,5 @@
       "passwordField": "userPassword"
     }
   },
-  "postgres": "postgres://postgres:jcdeveloper@localhost:5432/inMoveApp"
+  "postgres": "postgres://postgres:contrasenalhv@localhost:5432/inMoveApp"
 }

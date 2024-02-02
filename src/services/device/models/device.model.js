@@ -1,26 +1,39 @@
 // See https://sequelize.org/master/manual/model-basics.html
 // for more of what you can do here.
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
-  const sequelizeClient = app.get('sequelizeClient');
-  const device = sequelizeClient.define('device', {
-    deviceName: {
-      type: DataTypes.STRING,
-      allowNull: false
+  const sequelizeClient = app.get("sequelizeClient");
+  const device = sequelizeClient.define(
+    "device",
+    {
+      deviceName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      deviceMac: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      deviceBrand: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      deviceUser: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: "users", key: "id" },
+      },
     },
-    deviceMac: {
-      type: DataTypes.STRING,
-      allowNull: false
+    {
+      hooks: {
+        beforeCount(options) {
+          options.raw = true;
+        },
+      },
     }
-  }, {
-    hooks: {
-      beforeCount(options) {
-        options.raw = true;
-      }
-    }
-  });
+  );
 
   // eslint-disable-next-line no-unused-vars
   device.associate = function (models) {

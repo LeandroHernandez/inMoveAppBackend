@@ -1,16 +1,15 @@
-const md5 = require('md5');
-const findService = require('../../../functions/findService');
-const sendOtpByEmail = require('../../messages/send-email');
+const md5 = require("md5");
+const findService = require("../../../functions/findService");
+const sendOtpByEmail = require("../../messages/send-email");
 
 module.exports = function (context, data) {
-
   return new Promise(async function (resolve, reject) {
-    console.log('*** validateOtp ***');
+    console.log("*** validateOtp ***");
 
     let response = {};
 
     try {
-      const { ip, mac, device, otpType, otpCode } = data
+      const { ip, mac, device, otpType, otpCode } = data;
 
       let userData;
 
@@ -22,41 +21,32 @@ module.exports = function (context, data) {
           otpDevice: device,
           otpType,
           otpCode: md5(otpCode),
-          otpState: 'P',
+          // otpState: 'P',
         },
-        'otp-codes',
+        "otp-codes"
       );
 
-      console.log('*** responseOtpCodes ***', responseOtpCodes);
-
+      console.log("*** responseOtpCodes ***", responseOtpCodes);
 
       response = {
-        data:
-        {
+        data: {
           alert: "Código de seguridad VALIDADO correctamente",
-          type: 'success',
+          type: "success",
         },
-      }
+      };
 
-      resolve(response)
-
+      resolve(response);
     } catch (e) {
       console.log(e.message);
       response = {
-        data:
-        {
+        data: {
           alert: "Ha ocurrido un error al validar el OTP",
-          type: 'error',
+          type: "error",
           result: e.message,
         },
-      }
+      };
 
-      resolve(response)
+      resolve(response);
     }
-  })
-}
-
-
-
-
-
+  });
+};

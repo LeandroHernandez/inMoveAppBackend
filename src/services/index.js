@@ -1,10 +1,10 @@
-const users = require('./users/users.service.js');
-const parameters = require('./parameters/parameters.service.js');
-const cities = require('./cities/cities.service.js');
-const otpCode = require('./otp-code/otp-code.service.js');
-const otpTypes = require('./otp-types/otp-types.service.js');
-const otpCodes = require('./otp-codes/otp-codes.service.js');
-const device = require('./device/device.service.js');
+const users = require("./users/users.service.js");
+const parameters = require("./parameters/parameters.service.js");
+const cities = require("./cities/cities.service.js");
+const otpCode = require("./otp-code/otp-code.service.js");
+const otpTypes = require("./otp-types/otp-types.service.js");
+const otpCodes = require("./otp-codes/otp-codes.service.js");
+const device = require("./device/device.service.js");
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
