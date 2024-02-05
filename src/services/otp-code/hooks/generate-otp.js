@@ -142,7 +142,11 @@ module.exports = function (context, data) {
           // // console.log(response);
           // resolve(response);
         });
-      //Proceso para controlar tiempo de vida del otp --setTime()
+      const otpLifeTime = await findService(
+        context,
+        { parameterName: "otpLifeTime" },
+        "parameters"
+      );
       let response = {
         data: {
           alert: "Código de seguridad solicitado correctamente",
@@ -150,12 +154,15 @@ module.exports = function (context, data) {
           lengthToken: otpLength,
           // otpCodeGenerated,
           otpType,
+          otpLifeTime: otpLifeTime.data[0].parameterValue
+            ? otpLifeTime.data[0].parameterValue
+            : "Sin conicidencia en tabla de paramatros referente al tiempo de vida del otp",
         },
       };
       await otpExpirer(context, otpCode)
         .then((res) => {
           console.log({ res });
-          res.data.type === "error"
+          res.data.type === "invalid"
             ? (response = { data: { alert: "Código invalido", type: "error" } })
             : false;
         })

@@ -14,7 +14,10 @@ module.exports = function (context, otpCode) {
       console.log("otpCode");
       console.log(otpCode);
       console.log(
-        `Esperando ${JSON.parse(otpLifeTime.data[0].parameterValue)} minutos...`
+        // `Esperando ${JSON.parse(otpLifeTime.data[0].parameterValue)} minutos...`
+        `Esperando ${JSON.parse(
+          otpLifeTime.data[0].parameterValue
+        )} segundos...`
       );
       const otpCodeBd = await findService(context, { otpCode }, "otp-codes");
       console.log({ otpCodeBd, otpCodeBdData: otpCodeBd.data });
@@ -43,9 +46,10 @@ module.exports = function (context, otpCode) {
           } else {
             console.log(" El otp ya ha sido validado o caducado ");
           }
-        }, JSON.parse(otpLifeTime.data[0].parameterValue) * 60 * 1000);
+          // }, JSON.parse(otpLifeTime.data[0].parameterValue) * 60 * 1000);
+        }, JSON.parse(otpLifeTime.data[0].parameterValue) * 1000);
       } else {
-        response = { data: { type: "error" } };
+        response = { data: { type: "invalid" } };
       }
       resolve(response);
     } catch (e) {
