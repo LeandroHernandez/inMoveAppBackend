@@ -23,15 +23,26 @@ module.exports = function (context, otpCode) {
           type: "success",
         },
       };
-      if (!otpCodeBd.data[0].otpChecked || otpCodeBd.data[0].otpState === "P") {
+      // if (!otpCodeBd.data[0].otpChecked || otpCodeBd.data[0].otpState === "P") {
+      if (otpCodeBd.data[0].otpState === "P") {
+        console.log({ estado: otpCodeBd.data[0].otpState });
         setTimeout(async () => {
-          const updateCode = await updateService(
+          const otpCodeBd2 = await findService(
             context,
-            otpCodeBd.data[0].id,
-            { otpChecked: 1, otpState: "c" },
+            { otpCode },
             "otp-codes"
           );
-          console.log({ updateCode, state: "Expirado" });
+          if (otpCodeBd2.data[0].otpState === "P") {
+            const updateCode = await updateService(
+              context,
+              otpCodeBd.data[0].id,
+              { otpChecked: 1, otpState: "C" },
+              "otp-codes"
+            );
+            console.log({ updateCode, state: "Expirado" });
+          } else {
+            console.log(" El otp ya ha sido validado o caducado ");
+          }
         }, JSON.parse(otpLifeTime.data[0].parameterValue) * 60 * 1000);
       } else {
         response = { data: { type: "error" } };

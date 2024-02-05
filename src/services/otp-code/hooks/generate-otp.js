@@ -143,7 +143,6 @@ module.exports = function (context, data) {
           // resolve(response);
         });
       //Proceso para controlar tiempo de vida del otp --setTime()
-      console.log({ otpCodeGenerated, otpCode });
       let response = {
         data: {
           alert: "Código de seguridad solicitado correctamente",
@@ -162,6 +161,7 @@ module.exports = function (context, data) {
         })
         .catch((error) => console.log({ error }));
       console.log({ response });
+      console.log({ otpCodeGenerated, otpCode });
       resolve(response);
     } catch (e) {
       // console.log(e.message);
