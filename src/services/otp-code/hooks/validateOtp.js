@@ -42,7 +42,7 @@ module.exports = function (context, data) {
           userMessageResponse = await findService(
             context,
             {
-              userMessageResult: "succes",
+              userMessageResult: "success",
               userMessageReference: "otp validation",
             },
             "user-messages"
@@ -59,7 +59,7 @@ module.exports = function (context, data) {
           response = {
             data: {
               alert: userMessageResponse.data[0].userMessage,
-              type: "succes",
+              type: "success",
             },
           };
         }
