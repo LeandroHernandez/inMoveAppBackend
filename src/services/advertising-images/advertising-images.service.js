@@ -1,4 +1,4 @@
-// Initializes the `advertisingImages` service on path `/advertising-images`
+// Initializes the `advertising-images` service on path `/advertising-images`
 const { AdvertisingImages } = require("./advertising-images.class");
 const createModel = require("./models/advertising-images.model");
 const hooks = require("./advertising-images.hooks");

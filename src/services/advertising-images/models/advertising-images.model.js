@@ -8,27 +8,27 @@ module.exports = function (app) {
   const advertisingImages = sequelizeClient.define(
     "advertising_images",
     {
-      imageName: {
+      fileName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      imageFile: {
+      fileDescription: {
         type: DataTypes.STRING,
-        allowNull: false,
-      },
-      imageState: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      imageValidityDeadline: {
-        type: DataTypes.DATE,
         allowNull: true,
       },
-      imageReference: {
+      fileReference: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      imageURL: {
+      fileState: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      fileExpirerDate: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      fileUrl: {
         type: DataTypes.STRING,
         allowNull: false,
       },

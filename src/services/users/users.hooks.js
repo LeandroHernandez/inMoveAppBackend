@@ -1,6 +1,7 @@
 const { authenticate } = require("@feathersjs/authentication").hooks;
 const createUUID = require("./../../functions/create-uuid");
-const validateUser = require("./hooks/validate-user");
+// const validateUser = require("./hooks/validate-user");
+const registerDevice = require("./hooks/register-device");
 const filterUser = require("./hooks/filter-users");
 
 const { hashPassword, protect } =
@@ -26,7 +27,7 @@ module.exports = {
     ],
     find: [],
     get: [],
-    create: [],
+    create: [registerDevice()],
     update: [],
     patch: [],
     remove: [],
