@@ -1,3 +1,5 @@
+const deleteImage = require("./hooks/delete-image");
+
 const { authenticate } = require("@feathersjs/authentication").hooks;
 
 module.exports = {
@@ -9,7 +11,7 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: [],
+    remove: [deleteImage()],
   },
 
   after: {

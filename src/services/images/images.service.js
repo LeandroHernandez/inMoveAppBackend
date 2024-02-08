@@ -21,30 +21,20 @@ module.exports = function (app) {
     authenticate("jwt"),
     upload.single("imagePerfil"),
     async (req, res, next) => {
+      console.log({ req });
       const { file, body } = req;
       // const imageUrl = saveImage(req.file);
       const imageUrl = saveImage(file);
-      // console.log({ req, imageUrl });
+      // console.log({ req, body, file, imageUrl });
 
-      const userMessageResponseError = await findServiceApp(
-        app,
-        {
-          userMessageResult: "error",
-          userMessageReference: "upload error advertising Image",
-        },
-        "user-messages"
-      );
-      let response = {
-        status: 500,
-        json: {
-          alert:
-            userMessageResponseError.data.length > 0
-              ? userMessageResponseError.data[0].userMessage
-              : "Error al subir la imagen",
-          type: "error",
-        },
-      };
       try {
+        let response = {
+          status: 200,
+          json: {
+            alert: "Imagen subida correctamente",
+            type: "succes",
+          },
+        };
         // Aquí puedes obtener la URL de la imagen guardada
         // const imageUrl = "/public/" + file.filename;
 
@@ -119,6 +109,24 @@ module.exports = function (app) {
           // .json({ message: "Imagen subida exitosamente", imageUrl });
           .json(response.json);
       } catch (error) {
+        const userMessageResponseError = await findServiceApp(
+          app,
+          {
+            userMessageResult: "error",
+            userMessageReference: "upload error advertising Image",
+          },
+          "user-messages"
+        );
+        let response = {
+          status: 500,
+          json: {
+            alert:
+              userMessageResponseError.data.length > 0
+                ? userMessageResponseError.data[0].userMessage
+                : "Error al subir la imagen",
+            type: "error",
+          },
+        };
         console.error("Error al subir la imagen:", error);
         // res.status(500).json({ error: "Error al subir la imagen" });
         res.status(response.status).json(response.json);
