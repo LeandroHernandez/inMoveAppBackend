@@ -1,8 +1,10 @@
 const { authenticate } = require("@feathersjs/authentication").hooks;
 const createUUID = require("./../../functions/create-uuid");
 // const validateUser = require("./hooks/validate-user");
-const registerDevice = require("./hooks/register-device");
+// const registerDevice = require("./hooks/register-device");
+const registerUser = require("./hooks/register-user");
 const filterUser = require("./hooks/filter-users");
+const deleteAllUserImages = require("./hooks/delete-all-user-images");
 
 const { hashPassword, protect } =
   require("@feathersjs/authentication-local").hooks;
@@ -16,7 +18,7 @@ module.exports = {
     // create: [hashPassword("userPassword"), createUUID(), validateUser()],
     update: [hashPassword("userPassword"), authenticate("jwt")],
     patch: [hashPassword("userPassword"), authenticate("jwt")],
-    remove: [authenticate("jwt")],
+    remove: [authenticate("jwt"), deleteAllUserImages()],
   },
 
   after: {
@@ -27,7 +29,7 @@ module.exports = {
     ],
     find: [],
     get: [],
-    create: [registerDevice()],
+    create: [registerUser()],
     update: [],
     patch: [],
     remove: [],

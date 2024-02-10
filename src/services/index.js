@@ -11,6 +11,8 @@ const advertisingImages = require("./advertising-images/advertising-images.servi
 
 const images = require("./images/images.service.js");
 
+const userImages = require('./user-images/user-images.service.js');
+
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -24,4 +26,5 @@ module.exports = function (app) {
   app.configure(otpStates);
   app.configure(advertisingImages);
   app.configure(images);
+  app.configure(userImages);
 };
