@@ -29,7 +29,8 @@ module.exports = function (context, data) {
         // console.log({ condition: true, ip, mac });
         const devicesDb = await findService(
           context,
-          { deviceName: device, deviceMac: mac },
+          /// *** Se agrega este filtro deviceUser: usersDb.data[0].id para traer el dispositivo del usurio  ***
+          { deviceName: device, deviceMac: mac, deviceUser: usersDb.data[0].id },
           "device"
         );
         if (

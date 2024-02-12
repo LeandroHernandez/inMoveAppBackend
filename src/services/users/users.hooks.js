@@ -1,13 +1,25 @@
 const { authenticate } = require("@feathersjs/authentication").hooks;
 const createUUID = require("./../../functions/create-uuid");
-// const validateUser = require("./hooks/validate-user");
-// const registerDevice = require("./hooks/register-device");
+const { populate } = require('feathers-hooks-common');
+
 const registerUser = require("./hooks/register-user");
 const filterUser = require("./hooks/filter-users");
 const deleteAllUserImages = require("./hooks/delete-all-user-images");
 
 const { hashPassword, protect } =
   require("@feathersjs/authentication-local").hooks;
+
+  const schema = {
+    include: [
+      {
+        service: 'cities',
+        nameAs: 'city',
+        parentField: 'userCity', // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
+        childField: 'id', // *** campo hijo e la tabla cities ***
+        asArray: false
+      }
+    ]
+  }
 
 module.exports = {
   before: {
@@ -25,7 +37,7 @@ module.exports = {
     all: [
       // Make sure the userPassword field is never sent to the client
       // Always must be the last hook
-      protect("userPassword"),
+      populate({schema}), protect("userPassword"),
     ],
     find: [],
     get: [],

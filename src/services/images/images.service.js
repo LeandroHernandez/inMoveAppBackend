@@ -9,10 +9,13 @@ const upload = multer({ dest: "public/images/" });
 function saveImage(file, userCondition) {
   const newPath = `./public/images/${
     !userCondition ? "advertising-images" : "user-images"
-  }/ ${file.originalname}`;
+  }/${file.originalname}`;
   // console.log({ file, newPath, originalname: file.originalname });
   fs.renameSync(file.path, newPath);
-  return newPath;
+  const pathImage = `images/${
+    !userCondition ? "advertising-images" : "user-images"
+  }/${file.originalname}`;
+  return pathImage;
 }
 
 module.exports = function (app) {
