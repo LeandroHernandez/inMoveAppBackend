@@ -62,6 +62,12 @@ module.exports = function (app) {
         allowNull: false,
         defaultValue: true,
       },
+      userCurrentRole: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: "roles", key: "id" },
+        default: 1,
+      },
     },
     {
       hooks: {

@@ -5,36 +5,20 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get("sequelizeClient");
-  const userImages = sequelizeClient.define(
-    "user_images",
+  const userRoles = sequelizeClient.define(
+    "user_roles",
     {
-      userFileName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      userFileDescription: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      userFileReference: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      userFileProfileCondition: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        default: false,
-      },
-      userFileState: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      userFileUserId: {
+      userRoleIdUser: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: { model: "users", key: "id" },
       },
-      userFileUrl: {
+      userRoleIdRole: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: "roles", key: "id" },
+      },
+      userRoleState: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -49,10 +33,10 @@ module.exports = function (app) {
   );
 
   // eslint-disable-next-line no-unused-vars
-  userImages.associate = function (models) {
+  userRoles.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
   };
 
-  return userImages;
+  return userRoles;
 };

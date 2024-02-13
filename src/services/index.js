@@ -13,6 +13,10 @@ const images = require("./images/images.service.js");
 
 const userImages = require('./user-images/user-images.service.js');
 
+const roles = require('./roles/roles.service.js');
+
+const userRoles = require('./user-roles/user-roles.service.js');
+
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -27,4 +31,6 @@ module.exports = function (app) {
   app.configure(advertisingImages);
   app.configure(images);
   app.configure(userImages);
+  app.configure(roles);
+  app.configure(userRoles);
 };

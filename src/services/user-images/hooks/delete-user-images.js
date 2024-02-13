@@ -17,7 +17,7 @@ module.exports = () => {
       // const rutaArchivo = path.join(__dirname, "public", "images", nombreArchivo);
       const rutaArchivo = path.join(
         __dirname,
-        `../../../../${userImageDb.data[0].userFileUrl.slice(1)}`
+        `../../../../public/${userImageDb.data[0].userFileUrl}`
         // `../../../../`
       );
 

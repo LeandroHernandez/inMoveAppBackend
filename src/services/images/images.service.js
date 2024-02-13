@@ -1,21 +1,45 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable quotes */
 // Initializes the `images` service on path `/images`
 const { authenticate } = require("@feathersjs/express");
 const multer = require("multer");
 const fs = require("node:fs");
+const path = require("path");
 const findServiceApp = require("../../functions/findServiceApp");
 
 const upload = multer({ dest: "public/images/" });
 
-function saveImage(file, userCondition) {
-  const newPath = `./public/images/${
-    !userCondition ? "advertising-images" : "user-images"
-  }/${file.originalname}`;
-  // console.log({ file, newPath, originalname: file.originalname });
-  fs.renameSync(file.path, newPath);
-  const pathImage = `images/${
-    !userCondition ? "advertising-images" : "user-images"
-  }/${file.originalname}`;
-  return pathImage;
+function getExtension(originalname) {
+  // Buscar el último punto en el string
+  var puntoIndex = originalname.lastIndexOf(".");
+
+  // Verificar si se encontró un punto y si no es el último caracter
+  if (puntoIndex !== -1 && puntoIndex !== originalname.length - 1) {
+    // Extraer la extensión desde el punto hasta el final del string
+    var extension = originalname.slice(puntoIndex + 1);
+    return extension.toLowerCase(); // Convertir a minúsculas para mayor consistencia
+  } else {
+    return null; // No se encontró extensión válida
+  }
+}
+
+function saveImage(filePath, newPath) {
+  fs.renameSync(filePath, `./public/${newPath}`);
+  return newPath;
+}
+
+function delteImage(url, id) {
+  if (fs.existsSync(url)) {
+    // Eliminar el archivo
+    fs.unlinkSync(url);
+    console.log(
+      `El archivo correspondiente a foto de perfil de usuario ${id} fue eliminado correctamente.`
+    );
+  } else {
+    console.log(
+      `El archivo correspondiente a foto de perfil de usuario ${id} no existe.`
+    );
+  }
 }
 
 module.exports = function (app) {
@@ -30,7 +54,10 @@ module.exports = function (app) {
       console.log({ req });
       const { file, body } = req;
       // const imageUrl = saveImage(req.file);
-      const imageUrl = saveImage(file, false);
+      const imageUrl = saveImage(
+        file.path,
+        `images/advertising-images/${`${file.originalname}`}`
+      );
       // console.log({ req, body, file, imageUrl });
 
       try {
@@ -146,20 +173,23 @@ module.exports = function (app) {
     upload.single("imagePerfil"),
     // async (req, res, next) => {
     async (req, res) => {
-      // console.log({ req });
-      const { file, body } = req;
-      const device = JSON.parse(body.device);
-      const fileData = JSON.parse(body.fileData);
-      // const imageUrl = saveImage(req.file);
-      const imageUrl = saveImage(file, true);
-      console.log({
-        req,
-        body,
-        file,
-        imageUrl,
-        device,
-        fileData,
-      });
+      // const { file, body } = req;
+      const { body } = req;
+      let { file } = req;
+      const {
+        fileName,
+        fileDescription,
+        fileReference,
+        profileCondition,
+        fileState,
+      } = body;
+      const id = JSON.parse(body.id);
+      const imageUrl = saveImage(
+        file.path,
+        `images/user-images/image-usuario-${id}-foto-perfil.${getExtension(
+          file.originalname
+        )}`
+      );
 
       let userMessageResponse = null;
       let response = {
@@ -170,11 +200,157 @@ module.exports = function (app) {
         },
       };
       try {
+        // Aquí puedes obtener la URL de la imagen guardada
+        // const imageUrl = "/public/" + file.filename;
+
+        if (!id) {
+          console.log("No se ha proporcionado un ID de usuario");
+          userMessageResponse = await findServiceApp(
+            app,
+            {
+              userMessageResult: "without id error",
+              userMessageReference: "upload user photo perfil",
+            },
+            "user-messages"
+          );
+          response = {
+            status: 500,
+            json: {
+              alert:
+                userMessageResponse.data.length > 0
+                  ? userMessageResponse.data[0].userMessage
+                  : "Error al subir la foto de perfil, No se ha proporcionado ningún ID de usuario",
+              type: "error",
+            },
+          };
+          return res.status(response.status).json(response.json);
+        }
+
+        const userDbResponse = await findServiceApp(app, { id }, "users");
+
+        if (!userDbResponse.data.length > 0) {
+          console.log("ID ingresado en proceso de upload user image invalido");
+          userMessageResponse = await findServiceApp(
+            app,
+            {
+              userMessageResult: "userId not found error",
+              userMessageReference: "upload user photo perfil",
+            },
+            "user-messages"
+          );
+          response = {
+            status: 500,
+            json: {
+              alert:
+                userMessageResponse.data.length > 0
+                  ? userMessageResponse.data[0].userMessage
+                  : "ID invalido, el ID proporcionado no es valido ya que no coicide con ningun usuario en la base de datos",
+              type: "error",
+            },
+          };
+          delteImage(
+            path.join(
+              __dirname,
+              `../../../public/${imageUrl}`
+              // `../../../../`
+            ),
+            id
+          );
+          return res.status(response.status).json(response.json);
+        }
+
+        const userProfilesPhotosResponse = await findServiceApp(
+          app,
+          { userFileUserId: id, userFileProfileCondition: true },
+          "user-images"
+        );
+
+        userProfilesPhotosResponse.data.forEach(
+          async (userProfilesPhotoItem, i) => {
+            if (imageUrl !== userProfilesPhotoItem.userFileUrl) {
+              // const url = path.join(
+              //   __dirname,
+              //   `../../../public/${userProfilesPhotoItem.userFileUrl}`
+              //   // `../../../../`
+              // );
+              // if (fs.existsSync(url)) {
+              //   // Eliminar el archivo
+              //   fs.unlinkSync(url);
+              //   console.log(
+              //     `El archivo correspondiente a foto de perfil de usuario ${id} fue eliminado correctamente.`
+              //   );
+              // } else {
+              //   console.log(
+              //     `El archivo correspondiente a foto de perfil de usuario ${id} no existe.`
+              //   );
+              // }
+              delteImage(
+                path.join(
+                  __dirname,
+                  `../../../public/${userProfilesPhotoItem.userFileUrl}`
+                  // `../../../../`
+                ),
+                id
+              );
+              if (i === userProfilesPhotosResponse.data.length - 1) {
+                await app
+                  .service("user-images")
+                  .patch(userProfilesPhotoItem.id, {
+                    ...userProfilesPhotoItem,
+                    userFileUrl: imageUrl,
+                  });
+              } else {
+                await app
+                  .service("user-images")
+                  .remove(userProfilesPhotoItem.id);
+              }
+            }
+          }
+        );
+
+        if (userProfilesPhotosResponse.data.length === 0) {
+          const userImageCreated = await app.service("user-images").create({
+            userFileName: fileName ? fileName : file.originalname,
+            userFileDescription: fileDescription,
+            userFileReference: fileReference,
+            userFileState: fileState,
+            userFileProfileCondition: profileCondition
+              ? profileCondition
+              : false,
+            // id: userCreated.id,
+            userFileUserId: id,
+            userFileUrl: imageUrl,
+          });
+
+          if (!userImageCreated) {
+            console.log("Error al subir la imagen");
+            userMessageResponse = await findServiceApp(
+              app,
+              {
+                userMessageResult: "error",
+                userMessageReference: "upload user photo perfil",
+              },
+              "user-messages"
+            );
+            response = {
+              status: 500,
+              json: {
+                alert:
+                  userMessageResponse.data.length > 0
+                    ? userMessageResponse.data[0].userMessage
+                    : "No fue posible registrar la imagen en la base de datos",
+                type: "error",
+              },
+            };
+            return res.status(response.status).json(response.json);
+          }
+        }
+
         userMessageResponse = await findServiceApp(
           app,
           {
             userMessageResult: "succes",
-            userMessageReference: "user register with upload image",
+            userMessageReference: "upload user photo perfil",
           },
           "user-messages"
         );
@@ -188,201 +364,20 @@ module.exports = function (app) {
             type: "succes",
           },
         };
-        // Aquí puedes obtener la URL de la imagen guardada
-        // const imageUrl = "/public/" + file.filename;
 
-        const userDbResponse = await findServiceApp(
-          app,
-          { userPhone: body.userPhone },
-          "users"
+        return (
+          res
+            .status(response.status)
+            // .json({ message: "Imagen subida exitosamente", imageUrl });
+            .json(response.json)
         );
-        let userId = null;
-
-        if (userDbResponse.data.length > 0) {
-          userId = userDbResponse.data[0].id;
-        } else {
-          const userCreated = await app.service("users").create({ ...body });
-          const deviceCreated = await app
-            .service("device")
-            .create({ ...device, deviceUser: userCreated.id });
-          // if (!userCreated) {
-          if (!deviceCreated) {
-            const userDeletedResponse = await app
-              .service("users")
-              .remove(userCreated.id);
-            console.log("Usuario eliminado, ", { userDeletedResponse });
-            userMessageResponse = await findServiceApp(
-              app,
-              {
-                userMessageResult: "error",
-                userMessageReference: "user register with upload image",
-              },
-              "user-messages"
-            );
-            response = {
-              status: 500,
-              json: {
-                alert:
-                  userMessageResponse.data.length > 0
-                    ? userMessageResponse.data[0].userMessage
-                    : "No fue posible registrar el usuario",
-                type: "error",
-              },
-            };
-            return res.status(response.status).json(response.json);
-          }
-          console.log({ userCreated });
-          userId = userCreated.id;
-        }
-        if (!userId) {
-          console.log(
-            "Error interno al intentar registrar el usuario desde images service"
-          );
-          userMessageResponse = await findServiceApp(
-            app,
-            {
-              userMessageResult: "error",
-              userMessageReference: "user register with upload image",
-            },
-            "user-messages"
-          );
-          response = {
-            status: 500,
-            json: {
-              alert:
-                userMessageResponse.data.length > 0
-                  ? userMessageResponse.data[0].userMessage
-                  : "No fue posible registrar el usuario",
-              type: "error",
-            },
-          };
-          return res.status(response.status).json(response.json);
-        }
-
-        const userImageCreated = await app.service("user-images").create({
-          userFileName: fileData.fileName
-            ? fileData.fileName
-            : file.originalname,
-          userFileDescription: fileData.fileDescription,
-          userFileReference: fileData.fileReference,
-          userFileState: fileData.fileState,
-          // userFileUserId: userCreated.id,
-          userFileUserId: userId,
-          userFileUrl: imageUrl,
-        });
-
-        console.log({ userImageCreated });
-
-        if (!userImageCreated) {
-          console.log("Error al subir la imagen");
-          userMessageResponse = await findServiceApp(
-            app,
-            {
-              userMessageResult: "error image register",
-              userMessageReference: "user register with upload image",
-            },
-            "user-messages"
-          );
-          response = {
-            status: 500,
-            json: {
-              alert:
-                userMessageResponse.data.length > 0
-                  ? userMessageResponse.data[0].userMessage
-                  : "Se el usuario se ha registrado correctamente, pero no fue posible registrar la imagen en la base de datos",
-              type: "error",
-            },
-          };
-          return res.status(response.status).json(response.json);
-        }
-
-        // if (!userImageCreated) {
-        //   console.log("No fue posible registrar la imagen en la base de datos");
-        //   const userMessageResponse = await findServiceApp(
-        //     app,
-        //     {
-        //       userMessageResult: "error",
-        //       userMessageReference: "register advertising Image",
-        //     },
-        //     "user-messages"
-        //   );
-        //   res
-        //     .status(500)
-        //     // .json({ message: "Imagen subida exitosamente", imageUrl });
-        //     .json({
-        //       alert:
-        //         userMessageResponse.data.length > 0
-        //           ? userMessageResponse.data[0].userMessage
-        //           : "No fue posible registrar la imagen en la base de datos",
-        //       type: "error",
-        //     });
-        // }
-
-        // const userMessageResponse = await findServiceApp(
-        //   app,
-        //   {
-        //     userMessageResult: "succes",
-        //     userMessageReference: "upload advertising Image",
-        //   },
-        //   "user-messages"
-        // );
-        // if (userMessageResponse.data.length > 0) {
-        //   response = {
-        //     status: 200,
-        //     json: {
-        //       alert: userMessageResponse.data[0].userMessage,
-        //       type: "succes",
-        //     },
-        //   };
-        // } else {
-        //   console.log(
-        //     "No se encontraron concidencias en tabla de mensajes de usuario"
-        //   );
-        //   response = {
-        //     status: 200,
-        //     json: {
-        //       alert: "Imagen subida correctamente",
-        //       type: "succes",
-        //     },
-        //   };
-        // }
-
-        // res
-        //   .status(201)
-        //   // .json({ message: "Imagen subida exitosamente", imageUrl });
-        //   .json({ message: "Imagen subida exitosamente" });
-
-        res
-          .status(response.status)
-          // .json({ message: "Imagen subida exitosamente", imageUrl });
-          .json(response.json);
       } catch (error) {
-        // const userMessageResponseError = await findServiceApp(
-        //   app,
-        //   {
-        //     userMessageResult: "error",
-        //     userMessageReference: "upload error advertising Image",
-        //   },
-        //   "user-messages"
-        // );
-        // let response = {
-        //   status: 500,
-        //   json: {
-        //     alert:
-        //       userMessageResponseError.data.length > 0
-        //         ? userMessageResponseError.data[0].userMessage
-        //         : "Error al subir la imagen",
-        //     type: "error",
-        //   },
-        // };
-        // console.error("Error al subir la imagen:", error);
-        // // res.status(500).json({ error: "Error al subir la imagen" });
         console.log({ error });
         userMessageResponse = await findServiceApp(
           app,
           {
             userMessageResult: "error",
-            userMessageReference: "user register with upload image",
+            userMessageReference: "upload user photo perfil",
           },
           "user-messages"
         );
@@ -390,7 +385,7 @@ module.exports = function (app) {
           alert:
             userMessageResponse.data.length > 0
               ? userMessageResponse.data[0].userMessage
-              : "No fue posible registrar el usuario",
+              : "No fue posible registrar la foto de perfil",
           type: "error",
         };
         return res.status(response.status).json(response.json);

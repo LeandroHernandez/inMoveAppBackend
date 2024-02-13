@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const md5 = require("md5");
 const createService = require("../../../functions/createService");
 const findService = require("../../../functions/findService");
@@ -30,7 +31,11 @@ module.exports = function (context, data) {
         const devicesDb = await findService(
           context,
           /// *** Se agrega este filtro deviceUser: usersDb.data[0].id para traer el dispositivo del usurio  ***
-          { deviceName: device, deviceMac: mac, deviceUser: usersDb.data[0].id },
+          {
+            deviceName: device,
+            deviceMac: mac,
+            deviceUser: usersDb.data[0].id,
+          },
           "device"
         );
         if (
@@ -98,22 +103,28 @@ module.exports = function (context, data) {
         .then(async (resp) => {
           // console.log("*** otpCodeGenerated ***", otpCodeGenerated);
           /// *** Buscamos al usuario por numero de celular ***
-          if (otpForPhoneNumber) {
-            // console.log("*** Enviar otp por SMS ***");
-            // const smsBody = `Estimado usuario, InMove le informa que su código de seguridad es: ${otpCodeGenerated}`;
-            // await sendOtpBySms({
-            //   userPhone,
-            //   subject: "Código de seguridad",
-            //   body: smsBody,
-            // });
+          console.log({ otpType });
+          if (otpType !== 1) {
+            console.log({ otpTypeSendCondition: true });
+            if (otpForPhoneNumber) {
+              // console.log("*** Enviar otp por SMS ***");
+              // const smsBody = `Estimado usuario, InMove le informa que su código de seguridad es: ${otpCodeGenerated}`;
+              // await sendOtpBySms({
+              //   userPhone,
+              //   subject: "Código de seguridad",
+              //   body: smsBody,
+              // });
+            } else {
+              // console.log("*** Enviar otp por correo ***");
+              const emailBody = `Estimado usuario, InMove le informa que su código de seguridad es: ${otpCodeGenerated}`;
+              await sendOtpByEmail({
+                userEmail,
+                subject: "Código de seguridad",
+                body: emailBody,
+              });
+            }
           } else {
-            // console.log("*** Enviar otp por correo ***");
-            const emailBody = `Estimado usuario, InMove le informa que su código de seguridad es: ${otpCodeGenerated}`;
-            await sendOtpByEmail({
-              userEmail,
-              subject: "Código de seguridad",
-              body: emailBody,
-            });
+            console.log({ otpTypeSendCondition: false });
           }
           //Proceso para controlar tiempo de vida del otp --setTime()
           // const response = {
