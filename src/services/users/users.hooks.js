@@ -45,7 +45,7 @@ module.exports = {
     get: [],
     create: [registerUser(), setUserRole()],
     update: [],
-    patch: [],
+    patch: [setUserRole()],
     remove: [],
   },
 
