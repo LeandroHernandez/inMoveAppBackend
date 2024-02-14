@@ -2,8 +2,8 @@ const findService = require("../../../functions/findService");
 const createService = require("../../../functions/createService");
 module.exports = () => {
   return async (context) => {
-    console.log({ context });
     const { app, method, result, params, data } = context;
+    console.log({ context, data });
 
     let response = {};
 
@@ -38,6 +38,6 @@ module.exports = () => {
         });
     }
 
-    context.result = response;
+    // context.result = response;
   };
 };

@@ -2,7 +2,7 @@ const { authenticate } = require("@feathersjs/authentication").hooks;
 const createUUID = require("./../../functions/create-uuid");
 const { populate } = require("feathers-hooks-common");
 
-const registerUser = require("./hooks/register-user");
+const registerDevice = require("./hooks/register-device");
 const filterUser = require("./hooks/filter-users");
 const deleteAllUserImages = require("./hooks/delete-all-user-images");
 const setUserRole = require("./hooks/set-user-role");
@@ -43,7 +43,7 @@ module.exports = {
     ],
     find: [],
     get: [],
-    create: [registerUser(), setUserRole()],
+    create: [registerDevice(), setUserRole()],
     update: [],
     patch: [setUserRole()],
     remove: [],
