@@ -4,30 +4,50 @@ const findService = require("../functions/findService");
 module.exports = function (options = {}) {
   return async (context) => {
     const { params, app, data } = context;
-    // const { user } = params;
-
-    // !
-    // !
-    // !
-    // !
-    // !
-    // !
-    // !
-    // !
-    // !
-    // PENDIENTE INTEGRAR RESPUESTAS DE USUARIO CON TABLA DE MENSAJES DE USUARIO
-
-    const { userPhone, userCurrentRole } = data;
+    const { userPhone, roleName } = data;
     let response = {
       alert: "",
       type: "",
     };
+    // let userMessageResponse = { data: [] };
+    let userMessageResponse = {};
     const userDbReponse = await findService(context, { userPhone }, "users");
     if (!userDbReponse.data.length > 0) {
       console.log("El usuario no se encuentra registrado en la base de datos");
+      userMessageResponse = await findService(
+        context,
+        {
+          userMessageResult: "user not found error",
+          userMessageReference: "generate accesToken",
+        },
+        "user-messages"
+      );
       response = {
-        alert:
-          " No se ha encontrado ningun usuario en la base de datos correspondiente al numero de telefono ingresado ",
+        alert: userMessageResponse.data[0].userMessage
+          ? userMessageResponse.data[0].userMessage
+          : " No se ha encontrado ningun usuario en la base de datos correspondiente al numero de telefono ingresado ",
+        type: "error",
+      };
+      context.result = response;
+      return context;
+    }
+    const roleDbResponse = await findService(context, { roleName }, "roles");
+    if (!roleDbResponse.data.length > 0) {
+      console.log(
+        "El nombre de rol ingresado no corresponse a ningún rol registrado en la base de datos"
+      );
+      userMessageResponse = await findService(
+        context,
+        {
+          userMessageResult: "rol not found error",
+          userMessageReference: "generate accesToken",
+        },
+        "user-messages"
+      );
+      response = {
+        alert: userMessageResponse.data[0].userMessage
+          ? userMessageResponse.data[0].userMessage
+          : " El nombre de rol ingresado no corresponse a ningún rol registrado en la base de datos ",
         type: "error",
       };
       context.result = response;
@@ -35,42 +55,56 @@ module.exports = function (options = {}) {
     }
     const userRolesReponse = await findService(
       context,
-      { userRoleIdUser: userDbReponse.data[0].id },
+      {
+        userRoleIdUser: userDbReponse.data[0].id,
+        userRoleIdRole: roleDbResponse.data[0].id,
+      },
       "user-roles"
     );
-    const userValid = userRolesReponse.data.filter((userRoleItem) => {
-      return userRoleItem.userRoleIdRole === userCurrentRole;
-    });
-    if (!userValid.length > 0) {
+    // const userValid = userRolesReponse.data.filter((userRoleItem) => {
+    //   return userRoleItem.userRoleIdRole === userCurrentRole;
+    // });
+    if (!userRolesReponse.data.length > 0) {
+      console.log({ withOutResponseCondition: true });
       console.log(
         "El usuario ingresado no tiene permisos para acceder por medio de este rol de usuario"
       );
+      userMessageResponse = await findService(
+        context,
+        {
+          userMessageResult: "without acces to role error",
+          userMessageReference: "generate accesToken",
+        },
+        "user-messages"
+      );
       response = {
-        alert:
-          "El usuario ingresado no tiene permisos para acceder por medio de este rol de usuario",
+        alert: userMessageResponse.data[0].userMessage
+          ? userMessageResponse.data[0].userMessage
+          : "El usuario ingresado no tiene permisos para acceder por medio de este rol de usuario",
         type: "error",
       };
+      console.log({ response });
       context.result = response;
       return context;
     }
 
-    const userRoleDb = await findService(
-      context,
-      { id: userCurrentRole },
-      "roles"
-    );
+    // const userRoleDb = await findService(
+    //   context,
+    //   { id: userCurrentRole },
+    //   "roles"
+    // );
 
-    if (!userRoleDb.data.length > 0) {
-      response = {
-        alert:
-          "No fue posible verificar el rol ingresado para el proceso de autenticación",
-        type: "error",
-      };
-      context.result = response;
-      return context;
-    }
+    // if (!userRoleDb.data.length > 0) {
+    //   response = {
+    //     alert:
+    //       "No fue posible verificar el rol ingresado para el proceso de autenticación",
+    //     type: "error",
+    //   };
+    //   context.result = response;
+    //   return context;
+    // }
 
-    console.log({ userRoleDbData: userRoleDb.data });
+    // console.log({ userRoleDbData: userRoleDb.data });
     const jwtOptions = app.get("authentication").jwtOptions;
     if ("expiresIn" in jwtOptions) {
       // Eliminar la propiedad "description" del jwtOptions
@@ -78,9 +112,9 @@ module.exports = function (options = {}) {
     }
 
     if (
-      userRoleDb.data[0].roleName !== "Pasajero" &&
-      userRoleDb.data[0].roleName !== "Conductor" &&
-      userRoleDb.data[0].roleName !== "Cliente"
+      roleName !== "Pasajero" &&
+      roleName !== "Conductor" &&
+      roleName !== "Cliente"
     ) {
       jwtOptions.expiresIn = "5m";
     }
