@@ -108,12 +108,12 @@ module.exports = function (context, data) {
             console.log({ otpTypeSendCondition: true });
             if (otpForPhoneNumber) {
               // console.log("*** Enviar otp por SMS ***");
-              // const smsBody = `Estimado usuario, InMove le informa que su código de seguridad es: ${otpCodeGenerated}`;
-              // await sendOtpBySms({
-              //   userPhone,
-              //   subject: "Código de seguridad",
-              //   body: smsBody,
-              // });
+              const smsBody = `Estimado usuario, InMove le informa que su código de seguridad es: ${otpCodeGenerated}`;
+              await sendOtpBySms({
+                smsPhoneNumber: `${otpForPhoneNumber}${userPhone}`,
+                subject: "Código de seguridad",
+                body: smsBody,
+              });
             } else {
               // console.log("*** Enviar otp por correo ***");
               const emailBody = `Estimado usuario, InMove le informa que su código de seguridad es: ${otpCodeGenerated}`;
