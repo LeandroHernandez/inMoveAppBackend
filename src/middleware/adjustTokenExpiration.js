@@ -1,9 +1,10 @@
+/* eslint-disable quotes */
 // middleware/adjustTokenExpiration.js
 const findService = require("../functions/findService");
 
-module.exports = function (options = {}) {
+module.exports = function () {
   return async (context) => {
-    const { params, app, data } = context;
+    const { app, data } = context;
     const { userPhone, roleName } = data;
     let response = {
       alert: "",
@@ -116,7 +117,18 @@ module.exports = function (options = {}) {
       roleName !== "Conductor" &&
       roleName !== "Cliente"
     ) {
-      jwtOptions.expiresIn = "5m";
+      const jwtTimeLifeResponse = await findService(
+        context,
+        {
+          parameterName: "jwtLifeTime",
+          parameterState: true,
+        },
+        "parameters"
+      );
+      jwtOptions.expiresIn =
+        jwtTimeLifeResponse.data.length > 0
+          ? jwtTimeLifeResponse.data[0].parameterValue
+          : "5m";
     }
 
     return context;

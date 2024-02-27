@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 const { authenticate } = require("@feathersjs/authentication").hooks;
 const createUUID = require("./../../functions/create-uuid");
 const { populate } = require("feathers-hooks-common");

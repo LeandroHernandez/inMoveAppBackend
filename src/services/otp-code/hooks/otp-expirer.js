@@ -1,31 +1,28 @@
+/* eslint-disable no-async-promise-executor */
+/* eslint-disable quotes */
 const findService = require("../../../functions/findService");
 const updateService = require("../../../functions/updateService");
 
 module.exports = function (context, otpCode) {
-  return new Promise(async function (resolve, reject) {
+  return new Promise(async function (resolve) {
+    let response = {
+      data: {
+        type: "success",
+      },
+    };
     try {
       const otpLifeTime = await findService(
         context,
         { parameterName: "otpLifeTime" },
         "parameters"
       );
-
-      console.log({ otpLifeTime, otpLifeTimeData: otpLifeTime.data, otpCode });
-      console.log("otpCode");
-      console.log(otpCode);
       console.log(
-        // `Esperando ${JSON.parse(otpLifeTime.data[0].parameterValue)} minutos...`
         `Esperando ${JSON.parse(
           otpLifeTime.data[0].parameterValue
         )} segundos...`
       );
       const otpCodeBd = await findService(context, { otpCode }, "otp-codes");
       console.log({ otpCodeBd, otpCodeBdData: otpCodeBd.data });
-      let response = {
-        data: {
-          type: "success",
-        },
-      };
       // if (!otpCodeBd.data[0].otpChecked || otpCodeBd.data[0].otpState === "P") {
       if (otpCodeBd.data[0].otpState === "P") {
         console.log({ estado: otpCodeBd.data[0].otpState });

@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 const generateOtp = require("./generate-otp");
 const validateOtp = require("./validateOtp");
 

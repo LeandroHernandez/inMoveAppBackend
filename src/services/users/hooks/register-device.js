@@ -1,8 +1,10 @@
+/* eslint-disable quotes */
 const findService = require("../../../functions/findService");
 const createService = require("../../../functions/createService");
 module.exports = () => {
   return async (context) => {
-    const { app, method, result, params, data } = context;
+    // const { app, method, result, params, data } = context;
+    const { data } = context;
     console.log({ context, data });
 
     let response = {};

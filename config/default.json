@@ -26,8 +26,8 @@
   },
   "postgres": "postgres://postgres:contrasenalhv@localhost:5432/inMoveApp",
   "twilio": {
-    "accountSid": "",
-    "authToken": "",
-    "twilioNumber": ""
+    "accountSid": "AC154a30ec0395fda0f6106d2bf259ae37",
+    "authToken": "ef2072c8e8dea8391aa415703101f0f2",
+    "twilioNumber": "+18583527119"
   }
 }

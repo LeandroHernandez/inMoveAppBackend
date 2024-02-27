@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 const path = require("path");
 const favicon = require("serve-favicon");
 const compress = require("compression");
@@ -59,7 +60,7 @@ app.configure(authentication);
 //   res.send("Termina");
 // });
 
-// app.use("/images/multi", upload.array("photos", 10), (req, res) => {
+// app.use("/images/multi", upload.ARRAY(DataTypes.INTEGER)("photos", 10), (req, res) => {
 //   console.log({ files: req.files });
 //   req.files.map(saveImage);
 //   res.send("Termina multi");

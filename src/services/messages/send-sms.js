@@ -1,3 +1,6 @@
+/* eslint-disable no-async-promise-executor */
+/* eslint-disable no-unused-vars */
+/* eslint-disable quotes */
 const Twilio = require("twilio");
 const config = require("../../../config/default.json");
 
@@ -9,13 +12,11 @@ module.exports = function ({ smsPhoneNumber, subject, body }) {
       const twilioClient = new Twilio(accountSid, authToken);
       console.log({ smsPhoneNumber, body, twilioClient, twilioNumber });
 
-      //DESCOMENTAR PARA HABILITAR FINCION DE ENVIO DE OTP
-      // await twilioClient.messages.create({
-      //   // body: `Tu código de verificación es: ${code}`,
-      //   body,
-      //   to: smsPhoneNumber,
-      //   from: twilioNumber,
-      // });
+      await twilioClient.messages.create({
+        body,
+        to: smsPhoneNumber,
+        from: twilioNumber,
+      });
 
       resolve();
     } catch (e) {

@@ -50,7 +50,7 @@ module.exports = function (app) {
     "/images",
     authenticate("jwt"),
     upload.single("imagePerfil"),
-    async (req, res, next) => {
+    async (req, res) => {
       console.log({ req });
       const { file, body } = req;
       // const imageUrl = saveImage(req.file);
@@ -68,8 +68,6 @@ module.exports = function (app) {
             type: "succes",
           },
         };
-        // Aquí puedes obtener la URL de la imagen guardada
-        // const imageUrl = "/public/" + file.filename;
 
         const advertisingImageCreated = await app
           .service("advertising-images")

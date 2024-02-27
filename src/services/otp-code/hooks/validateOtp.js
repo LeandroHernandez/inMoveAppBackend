@@ -1,18 +1,19 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable no-async-promise-executor */
+/* eslint-disable linebreak-style */
+/* eslint-disable quotes */
 const md5 = require("md5");
 const findService = require("../../../functions/findService");
-const sendOtpByEmail = require("../../messages/send-email");
 const updateService = require("../../../functions/updateService");
 
 module.exports = function (context, data) {
-  return new Promise(async function (resolve, reject) {
+  return new Promise(async function (resolve) {
     console.log("*** validateOtp ***");
 
     let response = {};
 
     try {
       const { ip, mac, device, otpType, otpCode } = data;
-
-      let userData;
 
       console.log({ data });
 

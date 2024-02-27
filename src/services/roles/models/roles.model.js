@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // See https://sequelize.org/master/manual/model-basics.html
 // for more of what you can do here.
 const Sequelize = require("sequelize");

@@ -1,3 +1,5 @@
+/* eslint-disable quotes */
+/* eslint-disable no-async-promise-executor */
 /* eslint-disable linebreak-style */
 const md5 = require("md5");
 const createService = require("../../../functions/createService");
@@ -7,14 +9,13 @@ const sendOtpBySms = require("../../messages/send-sms");
 const otpExpirer = require("./otp-expirer");
 
 module.exports = function (context, data) {
-  return new Promise(async function (resolve, reject) {
+  return new Promise(async function (resolve) {
     // console.log("*** generateOtp ***");
     // console.log("*** data ***", data);
     let response = {};
 
     try {
-      const { ip, mac, device, userPhone, user, userEmail, otpForPhoneNumber } =
-        data;
+      const { ip, mac, device, userPhone, userEmail, otpForPhoneNumber } = data;
 
       const usersDb = await findService(
         context,
@@ -22,7 +23,6 @@ module.exports = function (context, data) {
         "users"
       );
       // console.log({ usersDb, usersDbData: usersDb.data });
-      let userData;
       let otpType;
       let otpTypeId;
 
@@ -89,7 +89,7 @@ module.exports = function (context, data) {
       );
       const otpCode = md5(otpCodeGenerated.toString());
       // console.log({ otpTypeId });
-      const responseCreateCode = await createService(context, "otp-codes", {
+      await createService(context, "otp-codes", {
         otpIp: ip,
         otpMac: mac,
         otpDevice: device,
@@ -100,7 +100,7 @@ module.exports = function (context, data) {
         otpChecked: 0,
         otpNumberOfAttempts: "0",
       })
-        .then(async (resp) => {
+        .then(async () => {
           // console.log("*** otpCodeGenerated ***", otpCodeGenerated);
           /// *** Buscamos al usuario por numero de celular ***
           console.log({ otpType });
@@ -141,7 +141,7 @@ module.exports = function (context, data) {
 
           // resolve(response);
         })
-        .catch((error) => {
+        .catch(() => {
           // // console.log('*** error ***', error.code);
           // response = {
           //   data:
@@ -200,6 +200,6 @@ module.exports = function (context, data) {
  *
  * @param {*} data
  */
-async function saveOtp({ data }) {
-  // console.log("*** saveOtp ***", data);
-}
+// async function saveOtp({ data }) {
+//   // console.log("*** saveOtp ***", data);
+// }
