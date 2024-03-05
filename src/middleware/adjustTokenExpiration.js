@@ -5,7 +5,12 @@ const findService = require("../functions/findService");
 module.exports = function () {
   return async (context) => {
     const { app, data } = context;
-    const { userPhone, roleName } = data;
+    const { userPhone, roleName, strategy } = data;
+
+    /**
+     * *** la segunda autenticacion se realiza con jwt para autenticar el client socket ***
+     */
+    if (strategy === 'jwt') return context;
     let response = {
       alert: "",
       type: "",

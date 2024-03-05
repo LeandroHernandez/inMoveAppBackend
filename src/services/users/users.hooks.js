@@ -21,6 +21,13 @@ const schema = {
       childField: "id", // *** campo hijo e la tabla cities ***
       asArray: false,
     },
+    {
+      service: "images",
+      nameAs: "profileImage",
+      parentField: "id",
+      childField: "fileUserId",
+      asArray: false,
+    },
   ],
 };
 
