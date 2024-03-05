@@ -12,7 +12,7 @@ module.exports = function (app) {
       vehicleFrontPhoto: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: "user_images", key: "id" },
+        references: { model: "images", key: "id" },
       },
       vehiclePlateNumber: {
         type: DataTypes.STRING,
@@ -50,22 +50,22 @@ module.exports = function (app) {
       vehicleRightSidePhoto: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: "user_images", key: "id" },
+        references: { model: "images", key: "id" },
       },
       vehicleLeftSidePhoto: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: "user_images", key: "id" },
+        references: { model: "images", key: "id" },
       },
       vehicleDashboardPhoto: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: "user_images", key: "id" },
+        references: { model: "images", key: "id" },
       },
       vehicleBackSidePhoto: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: "user_images", key: "id" },
+        references: { model: "images", key: "id" },
       },
       vehicleCategory: {
         type: DataTypes.INTEGER,

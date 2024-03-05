@@ -21,12 +21,12 @@ module.exports = function (app) {
       driverDocumentationLicensePhotoOnTheFront: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: "user_images", key: "id" },
+        references: { model: "images", key: "id" },
       },
       driverDocumentationLicensePhotoFromBehind: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: "user_images", key: "id" },
+        references: { model: "images", key: "id" },
       },
       driverDocumentationDateOfIssue: {
         type: DataTypes.DATE,

@@ -16,7 +16,7 @@ module.exports = function (app) {
       stepIcon: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: "user_images", key: "id" },
+        references: { model: "images", key: "id" },
       },
       stepRoute: {
         type: DataTypes.STRING,
