@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 const createService = require("../../../functions/createService");
 const findService = require("../../../functions/findService");
 

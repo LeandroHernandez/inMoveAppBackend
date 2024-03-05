@@ -11,7 +11,7 @@ const userMessages = require("./user-messages/user-messages.service.js");
 const otpStates = require("./otp-states/otp-states.service.js");
 const advertisingImages = require("./advertising-images/advertising-images.service.js");
 
-const images = require("./images/images.service.js");
+const image = require("./image/image.service.js");
 
 const userImages = require("./user-images/user-images.service.js");
 
@@ -65,6 +65,11 @@ const ratings = require("./ratings/ratings.service.js");
 
 const tripSpecifications = require("./trip-specifications/trip-specifications.service.js");
 
+const vehicleImages = require("./vehicle-images/vehicle-images.service.js");
+
+const images = require("./images/images.service.js");
+const queryService = require("./query-services/query-service.service.js");
+
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -77,7 +82,7 @@ module.exports = function (app) {
   app.configure(userMessages);
   app.configure(otpStates);
   app.configure(advertisingImages);
-  app.configure(images);
+  app.configure(image);
   app.configure(userImages);
   app.configure(roles);
   app.configure(userRoles);
@@ -104,4 +109,7 @@ module.exports = function (app) {
   app.configure(rates);
   app.configure(ratings);
   app.configure(tripSpecifications);
+  app.configure(vehicleImages);
+  app.configure(images);
+  app.configure(queryService);
 };

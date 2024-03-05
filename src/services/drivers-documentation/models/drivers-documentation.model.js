@@ -39,7 +39,7 @@ module.exports = function (app) {
       driverDocumentationDriverId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: "user_images", key: "id" },
+        references: { model: "drivers", key: "id" },
       },
       driverDocumentationState: {
         type: DataTypes.BOOLEAN,

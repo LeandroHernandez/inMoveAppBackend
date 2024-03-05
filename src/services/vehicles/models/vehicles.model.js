@@ -11,18 +11,18 @@ module.exports = function (app) {
     {
       vehicleFrontPhoto: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "user_images", key: "id" },
       },
       vehiclePlateNumber: {
         type: DataTypes.STRING,
         //PENDIENTE A CONSULTAR SI ES O OBLIGATORIO ( POR EJEMPLO EN BICICLETAS O CUALQUIER TIPO DE VEHICULO )
-        allowNull: false,
+        allowNull: true,
         unique: true,
       },
       vehicleType: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "types", key: "id" },
       },
       vehicleTypeBrand: {
@@ -37,7 +37,7 @@ module.exports = function (app) {
       },
       vehicleColor: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       vehiclePropertyCard: {
         type: DataTypes.STRING,
@@ -49,27 +49,28 @@ module.exports = function (app) {
       },
       vehicleRightSidePhoto: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "user_images", key: "id" },
       },
       vehicleLeftSidePhoto: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "user_images", key: "id" },
       },
       vehicleDashboardPhoto: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "user_images", key: "id" },
       },
       vehicleBackSidePhoto: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "user_images", key: "id" },
       },
-      vehicleCategories: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
+      vehicleCategory: {
+        type: DataTypes.INTEGER,
         allowNull: false,
+        references: { model: "categories", key: "id" },
       },
       vehicleDriverId: {
         type: DataTypes.INTEGER,

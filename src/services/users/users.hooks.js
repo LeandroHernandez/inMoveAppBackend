@@ -7,6 +7,7 @@ const registerDevice = require("./hooks/register-device");
 const filterUser = require("./hooks/filter-users");
 const deleteAllUserImages = require("./hooks/delete-all-user-images");
 const setUserRole = require("./hooks/set-user-role");
+const registerStepsPerUserProcess = require("./hooks/register-steps-per-user-process");
 
 const { hashPassword, protect } =
   require("@feathersjs/authentication-local").hooks;
@@ -44,7 +45,7 @@ module.exports = {
     ],
     find: [],
     get: [],
-    create: [registerDevice(), setUserRole()],
+    create: [registerDevice(), setUserRole(), registerStepsPerUserProcess()],
     update: [],
     patch: [setUserRole()],
     remove: [],

@@ -1,24 +1,46 @@
-const { authenticate } = require('@feathersjs/authentication').hooks;
+/* eslint-disable quotes */
+const { populate } = require("feathers-hooks-common");
+
+const { authenticate } = require("@feathersjs/authentication").hooks;
+
+const schema = {
+  include: [
+    {
+      service: "types",
+      nameAs: "bodyWorkType",
+      parentField: "vehicleClassificationBodyWorkType",
+      childField: "id",
+      asArray: false,
+    },
+    {
+      service: "states",
+      nameAs: "vehicleCondition",
+      parentField: "vehicleClassificationVehicleCondition",
+      childField: "id",
+      asArray: false,
+    },
+  ],
+};
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [authenticate("jwt")],
     find: [],
     get: [],
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   after: {
-    all: [],
+    all: [populate({ schema })],
     find: [],
     get: [],
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -28,6 +50,6 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
+    remove: [],
+  },
 };

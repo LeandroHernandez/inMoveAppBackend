@@ -23,7 +23,16 @@ build/Release
 # Commenting this out is preferred by some people, see
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
 node_modules
-public/images/*
+# public/images/*
+public/images/advertising-images/*
+public/images/icon-images/*
+public/images/invalid-images/*
+# public/images/user-images/*
+public/images/user-images/user-documentation/*
+public/images/user-images/user-profiles/*
+# public/images/vehicle-images/*
+public/images/vehicle-images/vehicle-documentation/*
+public/images/vehicle-images/vehicles/*
 # Users Environment Variables
 .lock-wscript
 

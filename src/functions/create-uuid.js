@@ -6,7 +6,6 @@ module.exports = () => {
       context.data = {
         userUuid: uuid(),
         ...data,
-        mensaje: "PUNTEROOOOOOO",
       };
       return context;
     } catch (error) {

@@ -13,6 +13,15 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      stepIcon: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: { model: "user_images", key: "id" },
+      },
+      stepRoute: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       stepDescription: {
         type: DataTypes.STRING,
         allowNull: true,

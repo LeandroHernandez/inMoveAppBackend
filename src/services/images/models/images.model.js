@@ -3,29 +3,51 @@
 // for more of what you can do here.
 const Sequelize = require("sequelize");
 const DataTypes = Sequelize.DataTypes;
+const { v4: uuid } = require("uuid");
 
 module.exports = function (app) {
   const sequelizeClient = app.get("sequelizeClient");
-  const models = sequelizeClient.define(
-    "models",
+  const images = sequelizeClient.define(
+    "images",
     {
-      modelName: {
+      uuid: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: uuid(),
+      },
+      fileName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      modelType: {
+      fileDescription: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      fileReference: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      fileType: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: { model: "types", key: "id" },
       },
-      modelDescription: {
+      userFileProfileCondition: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        default: false,
+      },
+      fileExpirerDate: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      modelState: {
-        type: DataTypes.BOOLEAN,
+      fileUrl: {
+        type: DataTypes.STRING,
         allowNull: false,
-        default: true,
+      },
+      fileState: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {
@@ -38,10 +60,10 @@ module.exports = function (app) {
   );
 
   // eslint-disable-next-line no-unused-vars
-  models.associate = function (models) {
+  images.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
   };
 
-  return models;
+  return images;
 };

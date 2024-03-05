@@ -22,25 +22,30 @@ module.exports = function (app) {
         allowNull: false,
         references: { model: "steps_per_process", key: "id" },
       },
-      stepPerUserProcessOwnerId: {
+      stepPerUserProcessUserId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: { model: "users", key: "id" },
       },
-      stepPerUserProcessOwnerRoleId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: { model: "roles", key: "id" },
-      },
-      stepPerUserProcessProcessType: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: { model: "types", key: "id" },
-      },
+      // stepPerUserProcessOwnerId: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: false,
+      // },
+      // stepPerUserProcessOwnerRoleId: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: false,
+      //   references: { model: "roles", key: "id" },
+      // },
       // stepPerUserProcessDriverId: {
       //   type: DataTypes.INTEGER,
       //   allowNull: false,
       //   references: { model: "drivers", key: "id" },
       // },
+      stepPerUserProcessType: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: "types", key: "id" },
+      },
       stepPerUserProcessState: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

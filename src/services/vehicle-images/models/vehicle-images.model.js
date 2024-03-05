@@ -3,29 +3,42 @@
 // for more of what you can do here.
 const Sequelize = require("sequelize");
 const DataTypes = Sequelize.DataTypes;
+const { v4: uuid } = require("uuid");
 
 module.exports = function (app) {
   const sequelizeClient = app.get("sequelizeClient");
-  const models = sequelizeClient.define(
-    "models",
+  const vehicleImages = sequelizeClient.define(
+    "vehicle_images",
     {
-      modelName: {
+      uuid: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: uuid(),
+      },
+      vehicleFileName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      modelType: {
+      vehicleFileDescription: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      vehicleFileReference: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      vehicleFileState: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      vehicleFilevehicleId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: "types", key: "id" },
+        references: { model: "vehicles", key: "id" },
       },
-      modelDescription: {
+      vehicleFileUrl: {
         type: DataTypes.STRING,
-        allowNull: true,
-      },
-      modelState: {
-        type: DataTypes.BOOLEAN,
         allowNull: false,
-        default: true,
       },
     },
     {
@@ -38,10 +51,10 @@ module.exports = function (app) {
   );
 
   // eslint-disable-next-line no-unused-vars
-  models.associate = function (models) {
+  vehicleImages.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
   };
 
-  return models;
+  return vehicleImages;
 };

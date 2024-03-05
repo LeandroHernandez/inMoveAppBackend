@@ -3,12 +3,18 @@
 // for more of what you can do here.
 const Sequelize = require("sequelize");
 const DataTypes = Sequelize.DataTypes;
+const { v4: uuid } = require("uuid");
 
 module.exports = function (app) {
   const sequelizeClient = app.get("sequelizeClient");
   const types = sequelizeClient.define(
     "types",
     {
+      uuid: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: uuid(),
+      },
       typeName: {
         type: DataTypes.STRING,
         allowNull: false,

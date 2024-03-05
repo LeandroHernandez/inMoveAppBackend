@@ -11,32 +11,32 @@ module.exports = function (app) {
     {
       driverSafetyDocumentationJobCertificatePhoto: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "user_images", key: "id" },
       },
       driverSafetyDocumentationCertijovenCertificatePhoto: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "user_images", key: "id" },
       },
       driverSafetyDocumentationPoliceRecordsPhoto: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "user_images", key: "id" },
       },
       driverSafetyDocumentationJudicialBackgroundPhoto: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "user_images", key: "id" },
       },
       driverSafetyDocumentationBackgroundConfirmationPhoto: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "user_images", key: "id" },
       },
       driverSafetyDocumentationDriverId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "drivers", key: "id" },
       },
       driverSafetyDocumentationState: {
