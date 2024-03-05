@@ -3,6 +3,8 @@ const { populate } = require("feathers-hooks-common");
 
 const { authenticate } = require("@feathersjs/authentication").hooks;
 
+// const getSteps = require("./hooks/get-steps");
+
 const schema = {
   include: [
     {
@@ -11,13 +13,15 @@ const schema = {
       parentField: "stepPerUserProcessStepsPerProcessId", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
       childField: "id", // *** campo hijo e la tabla cities ***
       asArray: false,
-    },
-    {
-      service: "roles",
-      nameAs: "ownerRole",
-      parentField: "stepPerUserProcessOwnerRoleId", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
-      childField: "id", // *** campo hijo e la tabla cities ***
-      asArray: false,
+      include: [
+        {
+          service: "steps",
+          nameAs: "steps",
+          parentField: "stepPerProcessSteps", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
+          childField: "id", // *** campo hijo e la tabla cities ***
+          asArray: true,
+        },
+      ],
     },
     {
       service: "steps",
@@ -29,9 +33,9 @@ const schema = {
     {
       service: "types",
       nameAs: "processType",
-      parentField: "stepPerUserProcessProcessType", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
+      parentField: "stepPerUserProcessType", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
       childField: "id", // *** campo hijo e la tabla cities ***
-      asArray: true,
+      asArray: false,
     },
   ],
 };

@@ -39,15 +39,15 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      userFileId: {
+      userImageProfile: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: { model: "images", key: "id" },
       },
-      userImageProfile: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
+      // userImageProfile: {
+      //   type: DataTypes.STRING,
+      //   allowNull: true,
+      // },
       userReceiveNotifications: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
