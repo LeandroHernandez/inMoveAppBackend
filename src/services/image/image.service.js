@@ -65,33 +65,40 @@ module.exports = function (app) {
         ? `${body.fileName}.${getExtension(file.originalname)}`
         : file.originalname;
       if (typeBbResponse.data.length > 0) {
-        if (typeBbResponse.data[0].typeName === "Imagen publicitaria") {
+        if (
+          typeBbResponse.data[0].typeName === "Tipos de Imagenes Publicitarias"
+        ) {
           // imageUrl = `images/advertising-images/${`${file.originalname}`}`;
           directory = "advertising-images";
         }
-        if (typeBbResponse.data[0].typeName === "Foto de perfil") {
+        if (
+          typeBbResponse.data[0].typeName === "Tipos de Imagenes de Usuario"
+        ) {
           // imageUrl = `images/vehicle-images/${`${file.originalname}`}`;
           directory = "user-images/user-profiles";
+          console.log({ directory });
         }
         if (
           typeBbResponse.data[0].typeName ===
-          "Imagen de documentación de usuario"
+          "Tipos de Imagenes de Documentación de Usuario"
         ) {
           // imageUrl = `images/vehicle-images/${`${file.originalname}`}`;
           directory = "user-images/user-documentation";
         }
         if (
           typeBbResponse.data[0].typeName ===
-          "Imagen de documentación de vehiculo"
+          "Tipos de Imagenes de Documentación de Vehiculo"
         ) {
           // imageUrl = `images/vehicle-images/${`${file.originalname}`}`;
           directory = "vehicle-images/vehicle-documentation";
         }
-        if (typeBbResponse.data[0].typeName === "Imagen de vehiculo") {
+        if (
+          typeBbResponse.data[0].typeName === "Tipos de Imagenes de Vehiculos"
+        ) {
           // imageUrl = `images/vehicle-images/${`${file.originalname}`}`;
           directory = "vehicle-images/vehicles";
         }
-        if (typeBbResponse.data[0].typeName === "Icono") {
+        if (typeBbResponse.data[0].typeName === "Tipos de Imagenes Iconos") {
           // imageUrl = `images/vehicle-images/${`${file.originalname}`}`;
           directory = "icon-images";
         }
