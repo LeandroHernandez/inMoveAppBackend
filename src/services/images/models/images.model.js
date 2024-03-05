@@ -15,11 +15,6 @@ module.exports = function (app) {
         allowNull: false,
         defaultValue: uuid(),
       },
-      fileUserId: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: { model: "users", key: "id" },
-      },
       fileName: {
         type: DataTypes.STRING,
         allowNull: false,

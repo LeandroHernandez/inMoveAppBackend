@@ -39,6 +39,11 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      userFileId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: { model: "images", key: "id" },
+      },
       userImageProfile: {
         type: DataTypes.STRING,
         allowNull: true,
