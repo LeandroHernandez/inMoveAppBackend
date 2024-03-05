@@ -24,8 +24,8 @@ const schema = {
     {
       service: "images",
       nameAs: "profileImage",
-      parentField: "id",
-      childField: "fileUserId",
+      parentField: "userFileId",
+      childField: "id",
       asArray: false,
     },
   ],
