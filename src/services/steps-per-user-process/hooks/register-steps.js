@@ -88,9 +88,7 @@ module.exports = () => {
         : stepPerUserProcessInvalidSteps,
       stepPerUserProcessUserId,
       stepPerUserProcessType,
-      stepPerUserProcessState: data.stepPerUserProcessState
-        ? data.stepPerUserProcessState
-        : true,
+      state: data.state ? data.state : true,
     };
 
     // context.result = response;
