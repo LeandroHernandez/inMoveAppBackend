@@ -38,16 +38,16 @@ module.exports = function (app) {
         allowNull: true,
         references: { model: "images", key: "id" },
       },
-      driverReceiveDeliveryNotifications: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        default: true,
-      },
-      driverReceiveToursNotifications: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        default: true,
-      },
+      // driverReceiveDeliveryNotifications: {
+      //   type: DataTypes.BOOLEAN,
+      //   allowNull: false,
+      //   default: true,
+      // },
+      // driverReceiveToursNotifications: {
+      //   type: DataTypes.BOOLEAN,
+      //   allowNull: false,
+      //   default: true,
+      // },
       driverSettingId: {
         type: DataTypes.INTEGER,
         allowNull: true,

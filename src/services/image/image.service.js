@@ -123,7 +123,7 @@ module.exports = function (app) {
             fileReference: body.fileReference,
             fileType: body.fileType,
             userFileProfileCondition: body.userFileProfileCondition,
-            fileState: body.fileState,
+            state: body.state,
             fileExpirerDate: body.fileExpirerDate ? body.fileExpirerDate : null,
             fileUrl: imageUrl,
             fileUserId: body.fileUserId,
@@ -190,7 +190,7 @@ module.exports = function (app) {
         fileDescription,
         fileReference,
         profileCondition,
-        fileState,
+        state,
       } = body;
       const id = JSON.parse(body.id);
       const imageUrl = saveImage(
@@ -322,7 +322,7 @@ module.exports = function (app) {
             userFileName: fileName ? fileName : file.originalname,
             userFileDescription: fileDescription,
             userFileReference: fileReference,
-            userFileState: fileState,
+            state: state,
             userFileProfileCondition: profileCondition
               ? profileCondition
               : false,
