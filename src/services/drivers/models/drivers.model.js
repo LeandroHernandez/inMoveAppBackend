@@ -58,7 +58,7 @@ module.exports = function (app) {
         allowNull: false,
         references: { model: "users", key: "id" },
       },
-      driverState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: true,

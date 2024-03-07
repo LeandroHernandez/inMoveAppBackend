@@ -27,10 +27,6 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      vehicleFileState: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       vehicleFilevehicleId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -39,6 +35,11 @@ module.exports = function (app) {
       vehicleFileUrl: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      state: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        default: true,
       },
     },
     {

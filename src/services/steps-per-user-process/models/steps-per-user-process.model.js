@@ -54,7 +54,7 @@ module.exports = function (app) {
         allowNull: false,
         references: { model: "types", key: "id" },
       },
-      stepPerUserProcessState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: true,

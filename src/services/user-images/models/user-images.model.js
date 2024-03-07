@@ -26,16 +26,16 @@ module.exports = function (app) {
         allowNull: false,
         default: false,
       },
-      userFileState: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       userFileUserId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: { model: "users", key: "id" },
       },
       userFileUrl: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      state: {
         type: DataTypes.STRING,
         allowNull: false,
       },
