@@ -9,14 +9,14 @@ module.exports = {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [createUuid()],
+    create: [],
     update: [],
     patch: [],
     remove: [],
   },
 
   after: {
-    all: [/**hideUuid() */],
+    all: [],
     find: [],
     get: [],
     create: [],

@@ -19,19 +19,13 @@ module.exports = function (app) {
         },
       };
 
-      const typeClassesDbResponse = await findServiceApp(
-        app,
-        body,
-        serviceToGet
-      );
+      const serviceDbResponse = await findServiceApp(app, body, serviceToGet);
 
-      console.log({ typeClassesDbResponse, data: typeClassesDbResponse.data });
-
-      if (!typeClassesDbResponse) {
+      if (!serviceDbResponse) {
         res.status(response.status).json(response.json);
       }
 
-      res.status(200).json(typeClassesDbResponse);
+      res.status(200).json(serviceDbResponse);
     } catch (error) {
       const response = {
         status: 500,

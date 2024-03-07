@@ -7,7 +7,6 @@ const registerDevice = require("./hooks/register-device");
 const filterUser = require("./hooks/filter-users");
 const deleteAllUserImages = require("./hooks/delete-all-user-images");
 const setUserRole = require("./hooks/set-user-role");
-const registerStepsPerUserProcess = require("./hooks/register-steps-per-user-process");
 
 const { hashPassword, protect } =
   require("@feathersjs/authentication-local").hooks;
@@ -23,18 +22,18 @@ const schema = {
     },
     {
       service: "images",
-      nameAs: "profileImage",
-      parentField: "id",
-      childField: "fileUserId",
+      nameAs: "imageProfile",
+      parentField: "userImageProfile", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
+      childField: "id", // *** campo hijo e la tabla cities ***
       asArray: false,
     },
-    // {
-    //   service: "device",
-    //   nameAs: "userDevice",
-    //   parentField: "id",
-    //   childField: "deviceUser",
-    //   asArray: false,
-    // },
+    {
+      service: "roles",
+      nameAs: "currentRole",
+      parentField: "userCurrentRole", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
+      childField: "id", // *** campo hijo e la tabla cities ***
+      asArray: false,
+    },
   ],
 };
 
@@ -59,7 +58,7 @@ module.exports = {
     ],
     find: [],
     get: [],
-    create: [registerDevice(), setUserRole(), registerStepsPerUserProcess()],
+    create: [registerDevice(), setUserRole()],
     update: [],
     patch: [setUserRole()],
     remove: [],

@@ -1,7 +1,6 @@
 /* eslint-disable quotes */
 const { populate } = require("feathers-hooks-common");
 const createUuid = require("../../functions/create-uuid");
-const hideUuid = require("../../functions/hide-uuid");
 // const hideTypeUuid = require("./hooks/hide-type-uuid");
 const validateUuid = require("./hooks/validate-uuid");
 
@@ -31,7 +30,7 @@ module.exports = {
   },
 
   after: {
-    all: [populate({ schema }), hideUuid()],
+    all: [populate({ schema })],
     find: [],
     get: [],
     create: [],
