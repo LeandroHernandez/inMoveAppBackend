@@ -69,12 +69,12 @@ module.exports = function (app) {
         if (queryAction === "Update" || queryAction === "Patch") {
           serviceDbResponse = await app
             .service(serviceToQuery)
-            .update(id, body);
+            .update(id, { ...recordToUpdateOrDelete.data[0], ...body });
         }
         if (queryAction === "Delete" || queryAction === "Remove") {
-          // serviceDbResponse = await app
-          //   .service(serviceToQuery)
-          //   .update(id, { ...recordToUpdateOrDelete.data[0], state: false });
+          serviceDbResponse = await app
+            .service(serviceToQuery)
+            .update(id, { ...recordToUpdateOrDelete.data[0], state: false });
         }
       }
       if (!queryAction || queryAction === "Get" || queryAction === "Find") {

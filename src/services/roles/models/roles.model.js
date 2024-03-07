@@ -13,7 +13,7 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      roleState: {
+      state: {
         type: DataTypes.STRING,
         allowNull: false,
       },

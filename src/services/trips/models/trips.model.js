@@ -53,7 +53,7 @@ module.exports = function (app) {
         allowNull: false,
         references: { model: "users", key: "id" },
       },
-      tripState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: true,

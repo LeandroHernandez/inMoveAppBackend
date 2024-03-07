@@ -22,7 +22,7 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      brandState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: true,

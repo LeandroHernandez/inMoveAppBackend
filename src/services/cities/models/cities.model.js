@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // See https://sequelize.org/master/manual/model-basics.html
 // for more of what you can do here.
 const Sequelize = require("sequelize");
@@ -16,7 +17,7 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      cityState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true,

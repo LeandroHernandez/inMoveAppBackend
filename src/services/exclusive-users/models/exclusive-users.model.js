@@ -51,7 +51,7 @@ module.exports = function (app) {
         allowNull: false,
         references: { model: "drivers", key: "id" },
       },
-      exclusiveUserState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: true,

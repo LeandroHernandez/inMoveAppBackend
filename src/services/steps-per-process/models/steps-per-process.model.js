@@ -38,7 +38,7 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      stepPerProcessState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: true,

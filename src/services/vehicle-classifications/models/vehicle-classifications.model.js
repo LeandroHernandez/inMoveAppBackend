@@ -44,7 +44,7 @@ module.exports = function (app) {
         allowNull: false,
         references: { model: "vehicles", key: "id" },
       },
-      vehicleClassificationState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: true,

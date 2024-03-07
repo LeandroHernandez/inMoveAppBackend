@@ -26,7 +26,7 @@ module.exports = function (app) {
         allowNull: true,
         references: { model: "trips", key: "id" },
       },
-      ratingState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: true,
