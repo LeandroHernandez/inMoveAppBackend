@@ -22,6 +22,14 @@ module.exports = function (app) {
         allowNull: false,
         references: { model: "steps_per_process", key: "id" },
       },
+      stepPerUserProcessInvalidSteps: {
+        type: DataTypes.ARRAY({
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          references: { model: "steps", key: "id" },
+        }),
+        allowNull: false,
+      },
       stepPerUserProcessUserId: {
         type: DataTypes.INTEGER,
         allowNull: false,

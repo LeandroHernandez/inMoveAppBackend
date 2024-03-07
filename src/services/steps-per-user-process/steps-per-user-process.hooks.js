@@ -3,7 +3,7 @@ const { populate } = require("feathers-hooks-common");
 
 const { authenticate } = require("@feathersjs/authentication").hooks;
 
-// const getSteps = require("./hooks/get-steps");
+const registerSteps = require("./hooks/register-steps");
 
 const schema = {
   include: [
@@ -23,13 +23,13 @@ const schema = {
         },
       ],
     },
-    {
-      service: "steps",
-      nameAs: "readySteps",
-      parentField: "stepPerUserProcessReadySteps", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
-      childField: "id", // *** campo hijo e la tabla cities ***
-      asArray: true,
-    },
+    // {
+    //   service: "steps",
+    //   nameAs: "readySteps",
+    //   parentField: "stepPerUserProcessReadySteps", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
+    //   childField: "id", // *** campo hijo e la tabla cities ***
+    //   asArray: true,
+    // },
     {
       service: "types",
       nameAs: "processType",
@@ -45,7 +45,7 @@ module.exports = {
     all: [authenticate("jwt")],
     find: [],
     get: [],
-    create: [],
+    create: [registerSteps()],
     update: [],
     patch: [],
     remove: [],
