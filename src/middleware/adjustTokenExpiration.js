@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable quotes */
 // middleware/adjustTokenExpiration.js
 const findService = require("../functions/findService");
@@ -7,10 +8,10 @@ module.exports = function () {
     const { app, data } = context;
     const { userPhone, roleName, strategy } = data;
 
-    /**
-     * *** la segunda autenticacion se realiza con jwt para autenticar el client socket ***
-     */
-    if (strategy === 'jwt') return context;
+    // /**
+    //  * *** la segunda autenticacion se realiza con jwt para autenticar el client socket ***
+    //  */
+    if (strategy === "jwt") return context;
     let response = {
       alert: "",
       type: "",
