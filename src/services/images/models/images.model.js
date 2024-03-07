@@ -49,6 +49,11 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      fileUserId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        // references: { model: "users", key: "id" },
+      },
     },
     {
       hooks: {

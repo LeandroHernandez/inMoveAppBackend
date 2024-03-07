@@ -24,10 +24,17 @@ const schema = {
     {
       service: "images",
       nameAs: "profileImage",
-      parentField: "userFileId",
-      childField: "id",
+      parentField: "id",
+      childField: "fileUserId",
       asArray: false,
     },
+    // {
+    //   service: "device",
+    //   nameAs: "userDevice",
+    //   parentField: "id",
+    //   childField: "deviceUser",
+    //   asArray: false,
+    // },
   ],
 };
 
