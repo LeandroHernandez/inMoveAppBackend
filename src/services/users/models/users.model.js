@@ -76,7 +76,7 @@ module.exports = function (app) {
       },
       state: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        allowNull: true,
         default: true,
       },
     },

@@ -21,10 +21,6 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      state: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       fileExpirerDate: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -32,6 +28,11 @@ module.exports = function (app) {
       fileUrl: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      state: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        default: true,
       },
     },
     {

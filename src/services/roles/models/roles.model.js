@@ -14,8 +14,9 @@ module.exports = function (app) {
         allowNull: false,
       },
       state: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        default: true,
       },
     },
     {

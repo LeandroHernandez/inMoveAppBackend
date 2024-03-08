@@ -99,6 +99,7 @@ module.exports = function (context, data) {
         otpState: "P",
         otpChecked: 0,
         otpNumberOfAttempts: "0",
+        state: true,
       })
         .then(async () => {
           // console.log("*** otpCodeGenerated ***", otpCodeGenerated);
@@ -141,7 +142,8 @@ module.exports = function (context, data) {
 
           // resolve(response);
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log({ error });
           // // console.log('*** error ***', error.code);
           // response = {
           //   data:
