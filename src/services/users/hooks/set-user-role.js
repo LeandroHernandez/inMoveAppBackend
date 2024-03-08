@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable quotes */
 const createService = require("../../../functions/createService");
 const findService = require("../../../functions/findService");
@@ -38,7 +39,8 @@ module.exports = () => {
         await createService(context, "user-roles", {
           userRoleIdUser,
           userRoleIdRole: userCurrentRole,
-          userRoleState: "Activo",
+          // userRoleState: "Activo",
+          // state: true,
         });
       }
     });
