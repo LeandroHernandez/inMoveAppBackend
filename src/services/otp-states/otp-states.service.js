@@ -1,4 +1,4 @@
-// Initializes the `otpStates` service on path `/otp-states`
+// Initializes the `states` service on path `/otp-states`
 const { OtpStates } = require("./otp-states.class");
 const createModel = require("./models/otp-states.model");
 const hooks = require("./otp-states.hooks");

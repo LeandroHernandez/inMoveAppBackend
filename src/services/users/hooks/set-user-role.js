@@ -7,7 +7,6 @@ module.exports = () => {
     const { data } = context;
     const { userPhone, userCurrentRole } = data;
     console.log("SETUSERROLE-------");
-    console.log({ context });
     let response = {
       alert: "Role creado correctamente",
       type: "succes",
