@@ -48,7 +48,7 @@ module.exports = function (app) {
       state: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
-        default: true,
+        defaultValue: true,
       },
     },
     {
