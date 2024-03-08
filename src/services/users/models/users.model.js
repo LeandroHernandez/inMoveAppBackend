@@ -63,11 +63,6 @@ module.exports = function (app) {
         allowNull: false,
         defaultValue: uuid(),
       },
-      userState: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: true,
-      },
       userCurrentRole: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -78,6 +73,11 @@ module.exports = function (app) {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: { model: "settings", key: "id" },
+      },
+      state: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        default: true,
       },
     },
     {

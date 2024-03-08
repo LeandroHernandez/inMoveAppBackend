@@ -19,9 +19,10 @@ module.exports = function (app) {
         allowNull: false,
         references: { model: "roles", key: "id" },
       },
-      userRoleState: {
-        type: DataTypes.STRING,
+      state: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
+        default: true,
       },
     },
     {

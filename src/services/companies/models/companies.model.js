@@ -42,7 +42,7 @@ module.exports = function (app) {
         allowNull: false,
         references: { model: "users", key: "id" },
       },
-      companyState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: true,

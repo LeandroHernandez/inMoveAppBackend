@@ -45,7 +45,7 @@ module.exports = function (app) {
       //   type: DataTypes.STRING,
       //   allowNull: false,
       // },
-      settingState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: true,

@@ -17,7 +17,7 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      tripSpecificationState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: true,

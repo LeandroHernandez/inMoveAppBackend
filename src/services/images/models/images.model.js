@@ -45,14 +45,15 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      fileState: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       fileUserId: {
         type: DataTypes.INTEGER,
         allowNull: true,
         // references: { model: "users", key: "id" },
+      },
+      state: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        default: true,
       },
     },
     {

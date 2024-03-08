@@ -17,7 +17,7 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      typeClassState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: true,

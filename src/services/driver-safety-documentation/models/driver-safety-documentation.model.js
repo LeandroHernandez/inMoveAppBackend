@@ -39,7 +39,7 @@ module.exports = function (app) {
         allowNull: true,
         references: { model: "drivers", key: "id" },
       },
-      driverSafetyDocumentationState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: true,

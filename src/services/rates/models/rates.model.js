@@ -25,7 +25,7 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      rateState: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: true,
