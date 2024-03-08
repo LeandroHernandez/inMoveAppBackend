@@ -6,14 +6,14 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get("sequelizeClient");
-  const otpStates = sequelizeClient.define(
+  const states = sequelizeClient.define(
     "otp_states",
     {
-      otpState: {
+      state: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      otpStateDescription: {
+      stateDescription: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -33,10 +33,10 @@ module.exports = function (app) {
   );
 
   // eslint-disable-next-line no-unused-vars
-  otpStates.associate = function (models) {
+  states.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
   };
 
-  return otpStates;
+  return states;
 };

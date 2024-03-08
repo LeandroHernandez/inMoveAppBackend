@@ -96,7 +96,7 @@ module.exports = function (context, data) {
         // otpCode: md5(otpCodeGenerated.toString()),
         otpCode,
         otpType: otpTypeId,
-        otpState: "P",
+        state: "P",
         otpChecked: 0,
         otpNumberOfAttempts: "0",
       })

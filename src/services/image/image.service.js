@@ -127,6 +127,7 @@ module.exports = function (app) {
             fileExpirerDate: body.fileExpirerDate ? body.fileExpirerDate : null,
             fileUrl: imageUrl,
             fileUserId: body.fileUserId,
+            state: true,
           });
         } else {
           response = {

@@ -23,20 +23,20 @@ module.exports = function (context, otpCode) {
       );
       const otpCodeBd = await findService(context, { otpCode }, "otp-codes");
       console.log({ otpCodeBd, otpCodeBdData: otpCodeBd.data });
-      // if (!otpCodeBd.data[0].otpChecked || otpCodeBd.data[0].otpState === "P") {
-      if (otpCodeBd.data[0].otpState === "P") {
-        console.log({ estado: otpCodeBd.data[0].otpState });
+      // if (!otpCodeBd.data[0].otpChecked || otpCodeBd.data[0].state === "P") {
+      if (otpCodeBd.data[0].state === "P") {
+        console.log({ estado: otpCodeBd.data[0].state });
         setTimeout(async () => {
           const otpCodeBd2 = await findService(
             context,
             { otpCode },
             "otp-codes"
           );
-          if (otpCodeBd2.data[0].otpState === "P") {
+          if (otpCodeBd2.data[0].state === "P") {
             const updateCode = await updateService(
               context,
               otpCodeBd.data[0].id,
-              { otpChecked: 1, otpState: "C" },
+              { otpChecked: 1, state: "C" },
               "otp-codes"
             );
             console.log({ updateCode, state: "Expirado" });
@@ -83,7 +83,7 @@ module.exports = function (context, otpCode) {
   //   }, JSON.parse(otpLifeTime.data[0].otpLifeTime) * 60 * 1000);
   //   const response = {
   //     data: {
-  //       otpState: "Expirado",
+  //       state: "Expirado",
   //     },
   //   };
   //   resolve(response);

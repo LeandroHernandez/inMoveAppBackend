@@ -5,7 +5,6 @@ module.exports = () => {
   return async (context) => {
     // const { app, method, result, params, data } = context;
     const { data } = context;
-    console.log({ context, data });
 
     let response = {};
 
