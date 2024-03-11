@@ -53,7 +53,7 @@ module.exports = () => {
     if (stepsPerUserProcessDbResponse.data.length > 0) {
       response.alert =
         "En la base de datos ya hay un registro de pasos por proceso de usuario correspondientes al id de usuario y tipo ingresado";
-      response.type = "succes";
+      response.type = "success";
       context.result = response;
       return context;
     }

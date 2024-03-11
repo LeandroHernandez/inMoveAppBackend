@@ -29,7 +29,7 @@ module.exports = () => {
           const userMessageResponse = await findService(
             context,
             {
-              userMessageResult: "succes",
+              userMessageResult: "success",
               userMessageReference: "user image delete",
             },
             "user-messages"
@@ -38,7 +38,7 @@ module.exports = () => {
             alert: userMessageResponse.data[0].userMessage
               ? userMessageResponse.data[0].userMessage
               : "Imagen eliminada correctamente",
-            type: "succes",
+            type: "success",
           };
           console.error("El archivo no existe o no se puede acceder.");
           return context;

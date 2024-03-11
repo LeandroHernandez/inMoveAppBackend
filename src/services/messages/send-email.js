@@ -37,7 +37,7 @@ module.exports = function ({ userEmail, subject, body, filePDF }) {
           if (err) {
             console.log("Error " + err);
           } else {
-            console.log("Email sent succesfully");
+            console.log("Email sent successfully");
           }
         }
       );

@@ -108,9 +108,7 @@ module.exports = function (app) {
       saveImage(file.path, imageUrl);
 
       try {
-        let response = {
-
-        };
+        let response = {};
         if (imageUrl && typeBbResponse.data.length > 0) {
           respImg = await app.service("images").create({
             // fileName: body.fileName ? body.fileName : file.originalname,
@@ -129,8 +127,8 @@ module.exports = function (app) {
             status: 200,
             json: {
               alert: "Imagen subida correctamente",
-              type: "succes",
-              data: respImg
+              type: "success",
+              data: respImg,
             },
           };
         } else {
@@ -363,7 +361,7 @@ module.exports = function (app) {
         userMessageResponse = await findServiceApp(
           app,
           {
-            userMessageResult: "succes",
+            userMessageResult: "success",
             userMessageReference: "upload user photo perfil",
           },
           "user-messages"
@@ -375,7 +373,7 @@ module.exports = function (app) {
               userMessageResponse.data.length > 0
                 ? userMessageResponse.data[0].userMessage
                 : "Usuario registrado correctamente",
-            type: "succes",
+            type: "success",
           },
         };
 

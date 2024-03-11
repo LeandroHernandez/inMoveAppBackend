@@ -24,7 +24,7 @@ module.exports = function (app) {
       userFileProfileCondition: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        default: false,
+        defaultValue: false,
       },
       userFileUserId: {
         type: DataTypes.INTEGER,

@@ -67,7 +67,7 @@ module.exports = function (app) {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: { model: "roles", key: "id" },
-        default: 1,
+        defaultValue: 1,
       },
       userSettingId: {
         type: DataTypes.INTEGER,

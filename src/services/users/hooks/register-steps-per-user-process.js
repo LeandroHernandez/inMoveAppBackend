@@ -62,7 +62,7 @@ module.exports = () => {
             console.log({ stepPerUserProcessCreated });
             // response.data = {
             //   alert: "Usuario registrado correctamente",
-            //   type: "succes",
+            //   type: "success",
             //   user: {
             //     ...userDbResponse.data[0],
             //     stepPerUserProcess: { ...stepPerUserProcessCreated },

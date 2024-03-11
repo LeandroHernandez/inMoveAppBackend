@@ -42,12 +42,12 @@ module.exports = function (app) {
       // driverReceiveDeliveryNotifications: {
       //   type: DataTypes.BOOLEAN,
       //   allowNull: false,
-      //   default: true,
+      //   defaultValue: true,
       // },
       // driverReceiveToursNotifications: {
       //   type: DataTypes.BOOLEAN,
       //   allowNull: false,
-      //   default: true,
+      //   defaultValue: true,
       // },
       driverSettingId: {
         type: DataTypes.INTEGER,

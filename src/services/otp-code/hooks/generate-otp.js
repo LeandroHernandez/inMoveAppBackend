@@ -135,7 +135,7 @@ module.exports = function (context, data) {
           // const response = {
           //   data: {
           //     alert: "Código de seguridad solicitado correctamente",
-          //     type: "succes",
+          //     type: "success",
           //     lengthToken: otpLength,
           //     otpCodeGenerated,
           //     otpType,
@@ -168,7 +168,7 @@ module.exports = function (context, data) {
       let response = {
         data: {
           alert: "Código de seguridad solicitado correctamente",
-          type: "succes",
+          type: "success",
           lengthToken: otpLength,
           // otpCodeGenerated,
           otpType,

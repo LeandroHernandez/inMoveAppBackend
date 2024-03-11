@@ -35,7 +35,7 @@ module.exports = function (app) {
       userFileProfileCondition: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        default: false,
+        defaultValue: false,
       },
       fileExpirerDate: {
         type: DataTypes.STRING,
