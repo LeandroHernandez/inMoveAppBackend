@@ -28,7 +28,7 @@ module.exports = () => {
       const userRoleIdUser = userDbResponse.id;
       const userRolesRespone = await findService(
         context,
-        { userRoleIdUser },
+        { userRoleIdUser, userRoleIdRole: userCurrentRole },
         "user-roles"
       );
       const userRoleDb = userRolesRespone.data.filter((userRoleItem) => {
@@ -41,7 +41,13 @@ module.exports = () => {
           userRoleIdRole: userCurrentRole,
           // userRoleState: "Activo",
           // state: true,
-        });
+        })
+          .then((userRoleCreated) => {
+            console.log({ userRoleCreated });
+          })
+          .catch((userRoleCreatedERROR) => {
+            console.log({ userRoleCreatedERROR });
+          });
       }
     });
 
