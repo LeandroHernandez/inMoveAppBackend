@@ -127,7 +127,7 @@ module.exports = function (app) {
             status: 200,
             json: {
               alert: "Imagen subida correctamente",
-              type: "success",
+              type: "succes",
               data: respImg,
             },
           };
