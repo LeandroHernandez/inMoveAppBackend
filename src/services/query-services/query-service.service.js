@@ -78,7 +78,11 @@ module.exports = function (app) {
         }
       }
       if (!queryAction || queryAction === "Get" || queryAction === "Find") {
-        serviceDbResponse = await findServiceApp(app, body, serviceToQuery);
+        serviceDbResponse = await findServiceApp(
+          app,
+          id ? { ...body, id } : body,
+          serviceToQuery
+        );
       }
 
       if (!serviceDbResponse) {

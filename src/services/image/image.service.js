@@ -110,24 +110,23 @@ module.exports = function (app) {
       try {
         let response = {};
         if (imageUrl && typeBbResponse.data.length > 0) {
-          respImg = await app.service("images").create({
+          const respImg = await app.service("images").create({
             // fileName: body.fileName ? body.fileName : file.originalname,
             fileName,
             fileDescription: body.fileDescription,
             fileReference: body.fileReference,
             fileType: body.fileType,
             userFileProfileCondition: body.userFileProfileCondition,
-            state: body.state,
+            state: body.state ? body.state : true,
             fileExpirerDate: body.fileExpirerDate ? body.fileExpirerDate : null,
             fileUrl: imageUrl,
             fileUserId: body.id,
-            state: true,
           });
           response = {
             status: 200,
             json: {
               alert: "Imagen subida correctamente",
-              type: "succes",
+              type: "success",
               data: respImg,
             },
           };
