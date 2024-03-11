@@ -61,7 +61,7 @@ module.exports = function (context, data) {
           response = {
             data: {
               alert: userMessageResponse.data[0].userMessage,
-              type: "succes",
+              type: "success",
             },
           };
         }

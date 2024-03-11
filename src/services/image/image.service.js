@@ -129,7 +129,7 @@ module.exports = function (app) {
             status: 200,
             json: {
               alert: "Imagen subida correctamente",
-              type: "succes",
+              type: "success",
               data: respImg
             },
           };
@@ -375,7 +375,7 @@ module.exports = function (app) {
               userMessageResponse.data.length > 0
                 ? userMessageResponse.data[0].userMessage
                 : "Usuario registrado correctamente",
-            type: "succes",
+            type: "success",
           },
         };
 

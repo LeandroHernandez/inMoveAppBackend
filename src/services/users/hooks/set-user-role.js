@@ -10,7 +10,7 @@ module.exports = () => {
     console.log("SETUSERROLE-------");
     let response = {
       alert: "Role creado correctamente",
-      type: "succes",
+      type: "success",
     };
 
     const userDbResponse = await findService(context, { userPhone }, "users");

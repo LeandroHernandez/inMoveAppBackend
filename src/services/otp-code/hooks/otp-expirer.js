@@ -8,7 +8,7 @@ module.exports = function (context, otpCode) {
   return new Promise(async function (resolve) {
     let response = {
       data: {
-        type: "succes",
+        type: "success",
       },
     };
     try {

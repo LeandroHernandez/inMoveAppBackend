@@ -26,7 +26,7 @@ module.exports = () => {
         .then((deviceCreated) => {
           response.data = {
             alert: "Usuario registrado correctamente",
-            type: "succes",
+            type: "success",
             user: { ...userDbResponse.data[0], device: { ...deviceCreated } },
           };
         })
