@@ -12,13 +12,13 @@ const schema = {
       childField: "id", // *** campo hijo e la tabla cities ***
       asArray: false,
     },
-    {
-      service: "settings",
-      nameAs: "setting",
-      parentField: "driverSettingId", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
-      childField: "id", // *** campo hijo e la tabla cities ***
-      asArray: false,
-    },
+    // {
+    //   service: "settings",
+    //   nameAs: "setting",
+    //   parentField: "driverSettingId", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
+    //   childField: "id", // *** campo hijo e la tabla cities ***
+    //   asArray: false,
+    // },
   ],
 };
 

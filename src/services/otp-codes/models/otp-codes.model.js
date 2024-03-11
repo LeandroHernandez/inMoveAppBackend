@@ -41,7 +41,7 @@ module.exports = function (app) {
       },
       otpState: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         default: "P",
       },
       state: {

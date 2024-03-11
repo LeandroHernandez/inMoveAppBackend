@@ -38,7 +38,7 @@ module.exports = function (context, data) {
       let userMessageResponse;
       if (responseOtpCodes.data.length > 0) {
         console.log("data");
-        if (responseOtpCodes.data[0].state === "P") {
+        if (responseOtpCodes.data[0].otpState === "P") {
           console.log("P");
           userMessageResponse = await findService(
             context,
@@ -53,7 +53,7 @@ module.exports = function (context, data) {
             responseOtpCodes.data[0].id,
             {
               otpChecked: 1,
-              state: "V",
+              state: true,
             },
             "otp-codes"
           ).then(() => console.log("Estado de otp pasado a verificado"));
@@ -64,7 +64,7 @@ module.exports = function (context, data) {
             },
           };
         }
-        if (responseOtpCodes.data[0].state === "V") {
+        if (responseOtpCodes.data[0].state === true) {
           console.log("V");
           userMessageResponse = await findService(
             context,

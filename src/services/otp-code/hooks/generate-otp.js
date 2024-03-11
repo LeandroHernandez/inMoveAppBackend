@@ -96,6 +96,7 @@ module.exports = function (context, data) {
         // otpCode: md5(otpCodeGenerated.toString()),
         otpCode,
         otpType: otpTypeId,
+        otpState: "P",
         state: "P",
         otpChecked: 0,
         otpNumberOfAttempts: "0",
@@ -104,6 +105,7 @@ module.exports = function (context, data) {
         .then(async () => {
           // console.log("*** otpCodeGenerated ***", otpCodeGenerated);
           /// *** Buscamos al usuario por numero de celular ***
+          console.log('*** { otpType } ***');
           console.log({ otpType });
           if (otpType !== 1) {
             console.log({ otpTypeSendCondition: true });
@@ -175,6 +177,7 @@ module.exports = function (context, data) {
       };
       await otpExpirer(context, otpCode)
         .then((res) => {
+          console.log('*** otpExpirer ***');
           console.log({ res });
           res.data.type === "invalid"
             ? (response = { data: { alert: "Código invalido", type: "error" } })

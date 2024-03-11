@@ -24,7 +24,7 @@ module.exports = function (context, otpCode) {
       const otpCodeBd = await findService(context, { otpCode }, "otp-codes");
       console.log({ otpCodeBd, otpCodeBdData: otpCodeBd.data });
       // if (!otpCodeBd.data[0].otpChecked || otpCodeBd.data[0].state === "P") {
-      if (otpCodeBd.data[0].state === "P") {
+      if (otpCodeBd.data[0].otpState === "P") {
         console.log({ estado: otpCodeBd.data[0].state });
         setTimeout(async () => {
           const otpCodeBd2 = await findService(
