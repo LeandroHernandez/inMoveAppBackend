@@ -1,5 +1,5 @@
 {
-  "host": "localhost",
+  "host": "192.168.18.7",
   "port": 3020,
   "public": "../public/",
   "paginate": {
@@ -24,7 +24,7 @@
       "passwordField": "userPassword"
     }
   },
-  "postgres": "postgres://postgres:inMove2024@localhost:5432/inmoveapp",
+  "postgres": "postgres://postgres:jcdeveloper@localhost:5432/inMoveApp",
   "twilio": {
     "accountSid": "",
     "authToken": "",

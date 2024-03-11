@@ -22,10 +22,11 @@ const schema = {
     },
     {
       service: "images",
-      nameAs: "imageProfile",
-      parentField: "userImageProfile", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
-      childField: "id", // *** campo hijo e la tabla cities ***
+      nameAs: "profileImage",
+      parentField: "userImageProfile", // *** campo padre en el este modelo (ejem: users)  ***
+      childField: "id", // *** campo hijo e la tabla images ***
       asArray: false,
+      state: true,
     },
     {
       service: "roles",
@@ -33,6 +34,22 @@ const schema = {
       parentField: "userCurrentRole", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
       childField: "id", // *** campo hijo e la tabla cities ***
       asArray: false,
+    },
+    {
+      service: "drivers",
+      nameAs: "dataDriver",
+      parentField: "id", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
+      childField: "driverUserId", // *** campo hijo e la tabla cities ***
+      asArray: false,
+      include: [
+        {
+          service: "images",
+          nameAs: "DNIConfirmationSelfie",
+          parentField: "driverDNIConfirmationSelfie", // *** id de la image en la tabla drivers ***
+          childField: "id", // *** id de de la image en la tabla image ***
+          asArray: false,
+        },
+      ],
     },
   ],
 };

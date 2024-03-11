@@ -109,14 +109,10 @@ module.exports = function (app) {
 
       try {
         let response = {
-          status: 200,
-          json: {
-            alert: "Imagen subida correctamente",
-            type: "succes",
-          },
+
         };
         if (imageUrl && typeBbResponse.data.length > 0) {
-          await app.service("images").create({
+          respImg = await app.service("images").create({
             // fileName: body.fileName ? body.fileName : file.originalname,
             fileName,
             fileDescription: body.fileDescription,
@@ -126,9 +122,17 @@ module.exports = function (app) {
             state: body.state,
             fileExpirerDate: body.fileExpirerDate ? body.fileExpirerDate : null,
             fileUrl: imageUrl,
-            fileUserId: body.fileUserId,
+            fileUserId: body.id,
             state: true,
           });
+          response = {
+            status: 200,
+            json: {
+              alert: "Imagen subida correctamente",
+              type: "succes",
+              data: respImg
+            },
+          };
         } else {
           response = {
             status: 500,

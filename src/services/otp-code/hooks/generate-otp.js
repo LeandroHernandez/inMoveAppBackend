@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable quotes */
 /* eslint-disable no-async-promise-executor */
 /* eslint-disable linebreak-style */
@@ -106,6 +107,7 @@ module.exports = function (context, data) {
         .then(async () => {
           // console.log("*** otpCodeGenerated ***", otpCodeGenerated);
           /// *** Buscamos al usuario por numero de celular ***
+          console.log("*** { otpType } ***");
           console.log({ otpType });
           if (otpType !== 1) {
             console.log({ otpTypeSendCondition: true });
@@ -177,6 +179,7 @@ module.exports = function (context, data) {
       };
       await otpExpirer(context, otpCode)
         .then((res) => {
+          console.log("*** otpExpirer ***");
           console.log({ res });
           res.data.type === "invalid"
             ? (response = { data: { alert: "Código invalido", type: "error" } })

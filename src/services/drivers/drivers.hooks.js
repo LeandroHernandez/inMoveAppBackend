@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable quotes */
 const { populate } = require("feathers-hooks-common");
 
@@ -12,13 +13,13 @@ const schema = {
       childField: "id", // *** campo hijo e la tabla cities ***
       asArray: false,
     },
-    {
-      service: "settings",
-      nameAs: "setting",
-      parentField: "driverSettingId", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
-      childField: "id", // *** campo hijo e la tabla cities ***
-      asArray: false,
-    },
+    // {
+    //   service: "settings",
+    //   nameAs: "setting",
+    //   parentField: "driverSettingId", // *** campo padre en el este modelo (ejem: users) contiene el id de la ciudad ***
+    //   childField: "id", // *** campo hijo e la tabla cities ***
+    //   asArray: false,
+    // },
   ],
 };
 

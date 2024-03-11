@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable quotes */
 // See https://sequelize.org/master/manual/model-basics.html
 // for more of what you can do here.
@@ -41,7 +42,7 @@ module.exports = function (app) {
       },
       otpState: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         default: "P",
       },
       state: {

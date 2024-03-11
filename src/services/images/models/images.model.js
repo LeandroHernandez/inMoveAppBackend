@@ -48,7 +48,7 @@ module.exports = function (app) {
       fileUserId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        // references: { model: "users", key: "id" },
+        references: { model: "users", key: "id" },
       },
       state: {
         type: DataTypes.BOOLEAN,
