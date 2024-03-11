@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-async-promise-executor */
 /* eslint-disable quotes */
 const findService = require("../../../functions/findService");
@@ -7,7 +8,7 @@ module.exports = function (context, otpCode) {
   return new Promise(async function (resolve) {
     let response = {
       data: {
-        type: "success",
+        type: "succes",
       },
     };
     try {
@@ -24,22 +25,22 @@ module.exports = function (context, otpCode) {
       const otpCodeBd = await findService(context, { otpCode }, "otp-codes");
       console.log({ otpCodeBd, otpCodeBdData: otpCodeBd.data });
       // if (!otpCodeBd.data[0].otpChecked || otpCodeBd.data[0].state === "P") {
-      if (otpCodeBd.data[0].state === "P") {
-        console.log({ estado: otpCodeBd.data[0].state });
+      if (otpCodeBd.data[0].otpState === "P") {
+        console.log({ estado: otpCodeBd.data[0].otpState });
         setTimeout(async () => {
           const otpCodeBd2 = await findService(
             context,
             { otpCode },
             "otp-codes"
           );
-          if (otpCodeBd2.data[0].state === "P") {
+          if (otpCodeBd2.data[0].otpState === "P") {
             const updateCode = await updateService(
               context,
               otpCodeBd.data[0].id,
-              { otpChecked: 1, state: "C" },
+              { otpChecked: 1, otpState: "C" },
               "otp-codes"
             );
-            console.log({ updateCode, state: "Expirado" });
+            console.log({ updateCode, otpState: "Expirado" });
           } else {
             console.log(" El otp ya ha sido validado o caducado ");
           }

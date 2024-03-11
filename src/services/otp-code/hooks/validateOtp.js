@@ -25,7 +25,7 @@ module.exports = function (context, data) {
           otpDevice: device,
           otpType,
           otpCode: md5(otpCode),
-          // state: 'P',
+          otpState: "P",
         },
         "otp-codes"
       );
@@ -38,33 +38,34 @@ module.exports = function (context, data) {
       let userMessageResponse;
       if (responseOtpCodes.data.length > 0) {
         console.log("data");
-        if (responseOtpCodes.data[0].state === "P") {
+        if (responseOtpCodes.data[0].otpState === "P") {
           console.log("P");
           userMessageResponse = await findService(
             context,
             {
-              userMessageResult: "success",
+              userMessageResult: "succes",
               userMessageReference: "otp validation",
             },
             "user-messages"
           );
+          console.log({ userMessageResponse });
           await updateService(
             context,
             responseOtpCodes.data[0].id,
             {
               otpChecked: 1,
-              state: "V",
+              otpState: "V",
             },
             "otp-codes"
           ).then(() => console.log("Estado de otp pasado a verificado"));
           response = {
             data: {
               alert: userMessageResponse.data[0].userMessage,
-              type: "success",
+              type: "succes",
             },
           };
         }
-        if (responseOtpCodes.data[0].state === "V") {
+        if (responseOtpCodes.data[0].otpState === "V") {
           console.log("V");
           userMessageResponse = await findService(
             context,
@@ -81,7 +82,7 @@ module.exports = function (context, data) {
             },
           };
         }
-        if (responseOtpCodes.data[0].state === "C") {
+        if (responseOtpCodes.data[0].otpState === "C") {
           console.log("C");
           userMessageResponse = await findService(
             context,

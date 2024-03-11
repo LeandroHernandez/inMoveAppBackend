@@ -89,6 +89,7 @@ module.exports = function (context, data) {
       );
       const otpCode = md5(otpCodeGenerated.toString());
       // console.log({ otpTypeId });
+      console.log({ otpCodeGenerated, otpCode });
       await createService(context, "otp-codes", {
         otpIp: ip,
         otpMac: mac,
@@ -96,8 +97,9 @@ module.exports = function (context, data) {
         // otpCode: md5(otpCodeGenerated.toString()),
         otpCode,
         otpType: otpTypeId,
-        state: "P",
-        otpChecked: 0,
+        otpState: "P",
+        // otpChecked: 0,
+        otpChecked: false,
         otpNumberOfAttempts: "0",
         state: true,
       })
@@ -131,7 +133,7 @@ module.exports = function (context, data) {
           // const response = {
           //   data: {
           //     alert: "Código de seguridad solicitado correctamente",
-          //     type: "success",
+          //     type: "succes",
           //     lengthToken: otpLength,
           //     otpCodeGenerated,
           //     otpType,
@@ -164,7 +166,7 @@ module.exports = function (context, data) {
       let response = {
         data: {
           alert: "Código de seguridad solicitado correctamente",
-          type: "success",
+          type: "succes",
           lengthToken: otpLength,
           // otpCodeGenerated,
           otpType,

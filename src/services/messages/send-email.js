@@ -1,59 +1,59 @@
-const nodemailer = require('nodemailer');
-const nodemailerSendmail = require('./nodemailer-sendmail');
-module.exports = function ({userEmail, subject, body, filePDF}) {
-
+const nodemailer = require("nodemailer");
+const nodemailerSendmail = require("./nodemailer-sendmail");
+module.exports = function ({ userEmail, subject, body, filePDF }) {
   return new Promise(async function (resolve, reject) {
-
-    console.log('*** SendEmail ***: ', userEmail);
+    console.log("*** SendEmail ***: ", userEmail);
 
     let resp_server = {};
 
     console.log(userEmail, subject, body);
 
     try {
-
       let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        host: 'tls://smtp.gmail.com',//'mail.cacpebiblian.fin.ec',
+        service: "gmail",
+        host: "tls://smtp.gmail.com", //'mail.cacpebiblian.fin.ec',
         port: 587,
         secure: true, // true for 465, false for other ports */
         auth: {
-          user: 'infoinmoveperu@gmail.com', // testAccount.user, // generated ethereal user
-          pass: 'caqt ryoj ajza qcay' // testAccount.pass // generated ethereal password
+          user: "infoinmoveperu@gmail.com", // testAccount.user, // generated ethereal user
+          pass: "caqt ryoj ajza qcay", // testAccount.pass // generated ethereal password
         },
         tls: {
-          rejectUnauthorized: false
+          rejectUnauthorized: false,
         },
-        socketTimeout: 43200000
+        socketTimeout: 43200000,
       });
 
       let mailOptions = {
-        from: 'infoinmoveperu@gmail.com',
+        from: "infoinmoveperu@gmail.com",
         to: userEmail,
         subject: subject,
         text: body,
       };
 
-      const send = await transporter.sendMail(mailOptions, function (err, data) {
-        if (err) {
-          console.log("Error " + err);
-        } else {
-          console.log("Email sent successfully");
+      const send = await transporter.sendMail(
+        mailOptions,
+        function (err, data) {
+          if (err) {
+            console.log("Error " + err);
+          } else {
+            console.log("Email sent succesfully");
+          }
         }
-      });
+      );
 
-      console.log('*** RESP send ***', send);
+      console.log("*** RESP send ***", send);
 
-       if (send.error) {
+      if (send.error) {
         resp_server = {
           data: send,
-          error: true
-        }
+          error: true,
+        };
       } else {
         resp_server = {
           data: send,
-          error: false
-        }
+          error: false,
+        };
       }
 
       // let transporter = nodemailer.createTransport({
@@ -160,19 +160,16 @@ module.exports = function ({userEmail, subject, body, filePDF}) {
       //     error: false
       //   }
       // }
-      resolve(resp_server)
-
+      resolve(resp_server);
     } catch (e) {
-
-      console.log(' error SEND_MAIL ')
+      console.log(" error SEND_MAIL ");
       console.log(JSON.stringify(e));
       resp_server = {
         data: e,
-        error: true
-      }
+        error: true,
+      };
 
       resolve(resp_server);
     }
-  })
-
-}
+  });
+};
