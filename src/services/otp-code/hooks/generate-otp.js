@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable quotes */
 /* eslint-disable no-async-promise-executor */
 /* eslint-disable linebreak-style */
@@ -89,6 +90,7 @@ module.exports = function (context, data) {
       );
       const otpCode = md5(otpCodeGenerated.toString());
       // console.log({ otpTypeId });
+      console.log({ otpCodeGenerated, otpCode });
       await createService(context, "otp-codes", {
         otpIp: ip,
         otpMac: mac,
@@ -97,15 +99,15 @@ module.exports = function (context, data) {
         otpCode,
         otpType: otpTypeId,
         otpState: "P",
-        state: "P",
-        otpChecked: 0,
+        // otpChecked: 0,
+        otpChecked: false,
         otpNumberOfAttempts: "0",
         state: true,
       })
         .then(async () => {
           // console.log("*** otpCodeGenerated ***", otpCodeGenerated);
           /// *** Buscamos al usuario por numero de celular ***
-          console.log('*** { otpType } ***');
+          console.log("*** { otpType } ***");
           console.log({ otpType });
           if (otpType !== 1) {
             console.log({ otpTypeSendCondition: true });
@@ -133,7 +135,7 @@ module.exports = function (context, data) {
           // const response = {
           //   data: {
           //     alert: "Código de seguridad solicitado correctamente",
-          //     type: "success",
+          //     type: "succes",
           //     lengthToken: otpLength,
           //     otpCodeGenerated,
           //     otpType,
@@ -166,7 +168,7 @@ module.exports = function (context, data) {
       let response = {
         data: {
           alert: "Código de seguridad solicitado correctamente",
-          type: "success",
+          type: "succes",
           lengthToken: otpLength,
           // otpCodeGenerated,
           otpType,
@@ -177,7 +179,7 @@ module.exports = function (context, data) {
       };
       await otpExpirer(context, otpCode)
         .then((res) => {
-          console.log('*** otpExpirer ***');
+          console.log("*** otpExpirer ***");
           console.log({ res });
           res.data.type === "invalid"
             ? (response = { data: { alert: "Código invalido", type: "error" } })

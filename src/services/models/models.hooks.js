@@ -6,6 +6,13 @@ const { authenticate } = require("@feathersjs/authentication").hooks;
 const schema = {
   include: [
     {
+      service: "brands",
+      nameAs: "Brand",
+      parentField: "modelBrand",
+      childField: "id",
+      asArray: false,
+    },
+    {
       service: "types",
       nameAs: "Type",
       parentField: "modelType",

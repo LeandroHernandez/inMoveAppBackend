@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable quotes */
 const { populate } = require("feathers-hooks-common");
 

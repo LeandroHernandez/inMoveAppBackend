@@ -18,6 +18,11 @@ module.exports = function (app) {
         allowNull: false,
         references: { model: "types", key: "id" },
       },
+      modelBrand: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: "brands", key: "id" },
+      },
       modelDescription: {
         type: DataTypes.STRING,
         allowNull: true,
