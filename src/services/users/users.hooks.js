@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable quotes */
 const { authenticate } = require("@feathersjs/authentication").hooks;
 const createUUID = require("./../../functions/create-uuid");
@@ -70,14 +71,14 @@ module.exports = {
     all: [
       // Make sure the userPassword field is never sent to the client
       // Always must be the last hook
-      populate({ schema }),
+      // populate({ schema }),
       protect("userPassword"),
     ],
-    find: [],
-    get: [],
+    find: [populate({ schema })],
+    get: [populate({ schema })],
     create: [registerDevice(), setUserRole()],
-    update: [],
-    patch: [setUserRole()],
+    update: [populate({ schema })],
+    patch: [setUserRole(), populate({ schema })],
     remove: [],
   },
 

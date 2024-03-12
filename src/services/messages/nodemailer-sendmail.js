@@ -10,11 +10,11 @@ module.exports = function (transporter, mailOptions) {
           resolve({ error }); // or use rejcet(false) but then you will have to handle errors
         } else {
           console.log(
-            "\n=================*** EMAIL succesFULLY SENT ***==================="
+            "\n=================*** EMAIL successFULLY SENT ***==================="
           );
           console.log(info.response);
           console.log(
-            "================*** #EMAIL succesFULLY SENT ***===================\n"
+            "================*** #EMAIL successFULLY SENT ***===================\n"
           );
           resolve({ info });
         }

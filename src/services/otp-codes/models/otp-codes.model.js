@@ -43,7 +43,7 @@ module.exports = function (app) {
       otpState: {
         type: DataTypes.STRING,
         allowNull: true,
-        default: "P",
+        defaultValue: "P",
       },
       state: {
         type: DataTypes.BOOLEAN,
