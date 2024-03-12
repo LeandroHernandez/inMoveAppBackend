@@ -29,7 +29,7 @@ module.exports = () => {
           const userMessageResponse = await findService(
             context,
             {
-              userMessageResult: "succes",
+              userMessageResult: "success",
               userMessageReference: "user image delete",
             },
             "user-messages"

@@ -8,6 +8,8 @@ module.exports = function () {
     const { app, data } = context;
     const { userPhone, roleName, strategy } = data;
 
+    console.log(userPhone, roleName, strategy);
+
     // /**
     //  * *** la segunda autenticacion se realiza con jwt para autenticar el client socket ***
     //  */

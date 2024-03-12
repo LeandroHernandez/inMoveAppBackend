@@ -363,7 +363,7 @@ module.exports = function (app) {
         userMessageResponse = await findServiceApp(
           app,
           {
-            userMessageResult: "succes",
+            userMessageResult: "success",
             userMessageReference: "upload user photo perfil",
           },
           "user-messages"
