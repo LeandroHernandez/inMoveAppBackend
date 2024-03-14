@@ -69,8 +69,8 @@ module.exports = function (app) {
       },
       vehicleCategory: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        references: { model: "categories", key: "id" },
+        allowNull: true,
+        // references: { model: "categories", key: "id" },
       },
       vehicleDriverId: {
         type: DataTypes.INTEGER,

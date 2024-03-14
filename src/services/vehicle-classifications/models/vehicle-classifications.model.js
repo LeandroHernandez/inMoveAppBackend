@@ -21,9 +21,13 @@ module.exports = function (app) {
       vehicleClassificationVehicleCondition: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: "states", key: "id" },
+        references: { model: "types", key: "id" },
       },
       vehicleClassificationPolarizedMoons: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      vehicleClassificationAirConditioning: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },

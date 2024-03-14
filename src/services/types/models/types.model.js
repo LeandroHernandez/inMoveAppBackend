@@ -19,6 +19,11 @@ module.exports = function (app) {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      stepProcessId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        // references: { model: "steps_per_process", key: "id" },
+      },
       typeClass: {
         type: DataTypes.INTEGER,
         allowNull: false,

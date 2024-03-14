@@ -18,6 +18,10 @@ module.exports = function (app) {
         allowNull: true,
         references: { model: "images", key: "id" },
       },
+      stepProcessId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
       stepRoute: {
         type: DataTypes.STRING,
         allowNull: true,
