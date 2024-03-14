@@ -77,6 +77,11 @@ module.exports = function (app) {
         allowNull: false,
         references: { model: "drivers", key: "id" },
       },
+      vehicleCompleteRegister: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: false,
+      },
       state: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
