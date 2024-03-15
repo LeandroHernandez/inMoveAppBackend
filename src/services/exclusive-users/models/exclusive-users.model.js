@@ -32,7 +32,6 @@ module.exports = function (app) {
       exclusiveUserCivilState: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: "states", key: "id" },
       },
       exclusiveUserChildren: {
         type: DataTypes.INTEGER,
