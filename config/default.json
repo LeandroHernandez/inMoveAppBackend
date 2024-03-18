@@ -24,7 +24,7 @@
       "passwordField": "userPassword"
     }
   },
-  "postgres": "postgres://postgres:inMove2024@localhost:5432/inmoveapp",
+  "postgres": "postgres://postgres:contrasenalhv@localhost:5432/inMoveApp",
   "twilio": {
     "accountSid": "",
     "authToken": "",
