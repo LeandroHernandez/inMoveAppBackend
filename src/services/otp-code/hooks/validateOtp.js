@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-async-promise-executor */
 /* eslint-disable linebreak-style */
@@ -5,6 +6,7 @@
 const md5 = require("md5");
 const findService = require("../../../functions/findService");
 const updateService = require("../../../functions/updateService");
+const createService = require("../../../functions/createService");
 
 module.exports = function (context, data) {
   return new Promise(async function (resolve) {
@@ -13,7 +15,7 @@ module.exports = function (context, data) {
     let response = {};
 
     try {
-      const { ip, mac, device, otpType, otpCode } = data;
+      const { ip, mac, device, otpType, otpCode, userPhone } = data;
 
       console.log({ data });
 
@@ -57,7 +59,91 @@ module.exports = function (context, data) {
               otpState: "V",
             },
             "otp-codes"
-          ).then(() => console.log("Estado de otp pasado a verificado"));
+            // ).then(() => console.log("Estado de otp pasado a verificado"));
+          ).then(async (otpVerificatedResponse) => {
+            console.log("Estado de otp pasado a verificado");
+            console.log({ otpVerificatedResponse });
+            // if (otpType === 2) {
+            //   if (userPhone) {
+            //     const userDbResponse = await findService(
+            //       context,
+            //       { userPhone },
+            //       "users"
+            //     );
+            //     if (userDbResponse.data.length > 0) {
+            //       await context.app
+            //         .service("users")
+            //         .update(userDbResponse.data[0].id, {
+            //           ...userDbResponse.data[0],
+            //           state: true,
+            //         })
+            //         .then(async () => {
+            //           await createService(context, "phone-and-email-historic", {
+            //             userPhone,
+            //             userEmail: userDbResponse.data[0].userEmail,
+            //             userId: userDbResponse.data[0].id,
+            //             otpCode: responseOtpCodes.data[0].id,
+            //           });
+            //         });
+            //     }
+            //   }
+            // }
+            if (otpType === 2 || otpType === 4) {
+              if (userPhone) {
+                let userPhoneAndEmailHistoricDbResponse = null;
+                if (otpType === 4) {
+                  userPhoneAndEmailHistoricDbResponse = await findService(
+                    context,
+                    {
+                      otpCode: responseOtpCodes.data[0].id,
+                    },
+                    "phone-and-email-historic"
+                  );
+                }
+                const userDbResponse = await findService(
+                  context,
+                  userPhoneAndEmailHistoricDbResponse
+                    ? { id: userPhoneAndEmailHistoricDbResponse.data[0].userId }
+                    : { userPhone },
+                  "users"
+                );
+                if (userDbResponse.data.length > 0) {
+                  await context.app
+                    .service("users")
+                    .update(userDbResponse.data[0].id, {
+                      ...userDbResponse.data[0],
+                      userPhone:
+                        otpType == 4
+                          ? userPhoneAndEmailHistoricDbResponse.data[0]
+                              .userPhone
+                          : userDbResponse.data[0].userPhone,
+                      userEmail:
+                        otpType == 4
+                          ? userPhoneAndEmailHistoricDbResponse.data[0]
+                              .userEmail
+                          : userDbResponse.data[0].userEmail,
+                      state: true,
+                    })
+                    .then(async () => {
+                      if (otpType === 2) {
+                        await createService(
+                          context,
+                          "phone-and-email-historic",
+                          {
+                            // userPhone,
+                            userPhone: userDbResponse.data[0].userPhone,
+                            // userEmail: userDbResponse.data[0].userEmail,
+                            userEmail: userDbResponse.data[0].userEmail,
+                            userId: userDbResponse.data[0].id,
+                            otpCode: responseOtpCodes.data[0].id,
+                          }
+                        );
+                      }
+                    });
+                }
+              }
+            }
+          });
           response = {
             data: {
               alert: userMessageResponse.data[0].userMessage,

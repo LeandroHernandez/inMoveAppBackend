@@ -70,6 +70,8 @@ const vehicleImages = require("./vehicle-images/vehicle-images.service.js");
 const images = require("./images/images.service.js");
 const queryService = require("./query-services/query-service.service.js");
 
+const phoneAndEmailHistoric = require('./phone-and-email-historic/phone-and-email-historic.service.js');
+
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -112,4 +114,5 @@ module.exports = function (app) {
   app.configure(vehicleImages);
   app.configure(images);
   app.configure(queryService);
+  app.configure(phoneAndEmailHistoric);
 };

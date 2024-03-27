@@ -16,11 +16,20 @@ module.exports = function (context, data) {
     let response = {};
 
     try {
-      const { ip, mac, device, userPhone, userEmail, otpForPhoneNumber } = data;
+      const {
+        ip,
+        mac,
+        device,
+        userPhone,
+        userEmail,
+        otpForPhoneNumber,
+        phoneOrEmailUpdate,
+        id,
+      } = data;
 
       const usersDb = await findService(
         context,
-        { userPhone: userPhone },
+        id ? { id } : { userPhone },
         "users"
       );
       // console.log({ usersDb, usersDbData: usersDb.data });
@@ -49,6 +58,9 @@ module.exports = function (context, data) {
         }
       } else {
         otpType = 2;
+      }
+      if (phoneOrEmailUpdate) {
+        otpType = 4;
       }
       console.log({ otpType });
       await findService(
@@ -104,11 +116,26 @@ module.exports = function (context, data) {
         otpNumberOfAttempts: "0",
         state: true,
       })
-        .then(async () => {
+        .then(async (otpCodeCreated) => {
           // console.log("*** otpCodeGenerated ***", otpCodeGenerated);
           /// *** Buscamos al usuario por numero de celular ***
           console.log("*** { otpType } ***");
           console.log({ otpType });
+          console.log({ otpCodeCreated });
+
+          if (otpType === 4) {
+            const bod = {
+              userPhone: userPhone ? userPhone : usersDb.data[0].userPhone,
+              userEmail: userEmail ? userEmail : usersDb.data[0].userEmail,
+              userId: usersDb.data[0].id,
+              otpCode: otpCodeCreated.id,
+            };
+            await createService(context, "phone-and-email-historic", bod).catch(
+              (recordCeated_ERROR_Response) =>
+                console.log({ recordCeated_ERROR_Response })
+            );
+          }
+
           if (otpType !== 1) {
             console.log({ otpTypeSendCondition: true });
             if (otpForPhoneNumber) {
@@ -131,34 +158,9 @@ module.exports = function (context, data) {
           } else {
             console.log({ otpTypeSendCondition: false });
           }
-          //Proceso para controlar tiempo de vida del otp --setTime()
-          // const response = {
-          //   data: {
-          //     alert: "Código de seguridad solicitado correctamente",
-          //     type: "success",
-          //     lengthToken: otpLength,
-          //     otpCodeGenerated,
-          //     otpType,
-          //   },
-          // };
-
-          // // console.log({ response });
-
-          // resolve(response);
         })
         .catch((error) => {
           console.log({ error });
-          // // console.log('*** error ***', error.code);
-          // response = {
-          //   data:
-          //   {
-          //     alert: "Ha ocurrido un error",
-          //     type: 'error',
-          //     message: `${error.code}: ${error.message}`
-          //   },
-          // }
-          // // console.log(response);
-          // resolve(response);
         });
       const otpLifeTime = await findService(
         context,
@@ -177,7 +179,7 @@ module.exports = function (context, data) {
             : "Sin conicidencia en tabla de paramatros referente al tiempo de vida del otp",
         },
       };
-      await otpExpirer(context, otpCode)
+      await otpExpirer(context, otpCode, userPhone)
         .then((res) => {
           console.log("*** otpExpirer ***");
           console.log({ res });

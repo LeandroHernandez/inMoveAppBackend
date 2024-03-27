@@ -5,9 +5,11 @@ const createUUID = require("./../../functions/create-uuid");
 const { populate } = require("feathers-hooks-common");
 
 const registerDevice = require("./hooks/register-device");
+const phoneEmail = require("./hooks/phone-email");
 const filterUser = require("./hooks/filter-users");
 const deleteAllUserImages = require("./hooks/delete-all-user-images");
 const setUserRole = require("./hooks/set-user-role");
+const otpCode = require("../otp-code/hooks/otp-code");
 
 const { hashPassword, protect } =
   require("@feathersjs/authentication-local").hooks;
@@ -60,10 +62,10 @@ module.exports = {
     all: [],
     find: [authenticate("jwt"), filterUser()],
     get: [authenticate("jwt"), filterUser()],
-    create: [hashPassword("userPassword"), createUUID()],
+    create: [hashPassword("userPassword"), createUUID(), phoneEmail()],
     // create: [hashPassword("userPassword"), createUUID(), validateUser()],
-    update: [hashPassword("userPassword"), authenticate("jwt")],
-    patch: [hashPassword("userPassword"), authenticate("jwt")],
+    update: [hashPassword("userPassword"), authenticate("jwt"), phoneEmail()],
+    patch: [hashPassword("userPassword"), authenticate("jwt"), phoneEmail()],
     remove: [authenticate("jwt"), deleteAllUserImages()],
   },
 
@@ -76,8 +78,11 @@ module.exports = {
     ],
     find: [populate({ schema })],
     get: [populate({ schema })],
+    // create: [registerDevice(), phoneEmail(), setUserRole()],
     create: [registerDevice(), setUserRole()],
+    // update: [phoneEmail(), populate({ schema })],
     update: [populate({ schema })],
+    // patch: [setUserRole(), phoneEmail(), populate({ schema })],
     patch: [setUserRole(), populate({ schema })],
     remove: [],
   },
